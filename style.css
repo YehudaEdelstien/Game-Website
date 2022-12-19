@@ -1,0 +1,35 @@
+body, fieldset {
+    margin: 0;
+}
+
+body {
+    text-align: center;
+    font-family: Arial;
+}
+
+input, button{
+    display: block;
+    height: 40px;
+    width: 200px;
+}
+
+.formContainer {
+    width: 100vw;
+    max-width: 300px;
+    margin: 10px auto;
+    height: 300px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.formContainer *{
+    margin: auto;
+}
+
+
+
+@media (min-width: 576px) {
+    .forms {
+        display: flex;
+    }
+}
