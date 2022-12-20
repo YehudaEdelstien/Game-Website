@@ -12,7 +12,7 @@ window.onload = () => {
     document.getElementById("loginButton").addEventListener("click", logIn);
     // const arrData = [{ name: "boy", user: "bbb" }, { name: "booy", user: "aaa" }]
     // localStorage.setItem("webGameData", JSON.stringify(arrData))
-    // console.log(getUsers());
+    console.log(getUsers());
 }
 
 function signIn() {
@@ -30,9 +30,8 @@ function signIn() {
 function logIn() {
     let user = document.getElementById("user").value;
     let pass = document.getElementById("password").value;
-    const arr = getUsers();
-    obj = doesUserExist(user)
-    if (obj.password = pass) {
+    const obj = doesUserExist(user)
+    if (obj.password == pass) {
         console.log("yey")
     }
 
