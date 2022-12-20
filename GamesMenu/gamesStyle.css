@@ -13,6 +13,14 @@ header {
     top: 0;
 }
 
+main {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .headerItem {
     display: flex;
     align-items: center;
@@ -25,14 +33,12 @@ header {
 }
 
 .gameContainer {
-    width: 95vw;
-    margin: auto;
-    border-bottom: 3px solid grey;
+    width: 500px;
 }
 
 .gameWindow {
     height: 300px;
-    width: 300px;
+    width: 400px;
     margin: 10px auto;
     background-color: lightseagreen;
     border: 2px solid grey;
@@ -45,9 +51,9 @@ header {
     margin: 10px auto;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
     .gameContainer {
         display: flex;
         align-items: center;
     }
-}
+} */

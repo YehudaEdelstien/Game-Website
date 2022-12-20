@@ -1,3 +1,5 @@
+const dataBase ="webGameData";
+
 class userData {
     constructor(name, user, email, password) {
         this.name = name;
@@ -7,19 +9,22 @@ class userData {
     }
 }
 
+
 window.onload = () => {
+    if (!getUsers()) { // check if isn't there a dataBase
+        localStorage.setItem(dataBase, "[]"); // made dataBase
+    }
+
     document.getElementById("regButton").addEventListener("click", signIn);
     document.getElementById("loginButton").addEventListener("click", logIn);
-    // const arrData = [{ name: "boy", user: "bbb" }, { name: "booy", user: "aaa" }]
-    // localStorage.setItem("webGameData", JSON.stringify(arrData))
     console.log(getUsers());
 }
 
 function signIn() {
-    // ✔️get new user value
-    let user = document.getElementById("nUser").value;
+    
+    let user = document.getElementById("nUser").value; // get new user value
     if (doesUserExist(user)) {
-        alert("you alredy here! please log in.") // upgrade
+        alert("you alredy here! please log in.") // ❗upgrade later
 
     } else {
         addUser(createObjUser())
@@ -61,13 +66,13 @@ function createObjUser() {
 }
 
 function getUsers() {
-    const arr = JSON.parse(localStorage.getItem("webGameData"));
+    const arr = JSON.parse(localStorage.getItem(dataBase));
     return arr;
 }
 
 function addUser(obj) {
     const arr = getUsers();
     arr.push(obj);
-    localStorage.setItem("webGameData", JSON.stringify(arr));
+    localStorage.setItem(dataBase, JSON.stringify(arr));
     console.log(getUsers());
 }
