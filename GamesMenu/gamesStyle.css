@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: 100vw;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+}
+
+.headerItem {
+    display: flex;
+    align-items: center;
+    font-size: large;
+    border: 1px solid bisque;
+}
+
+.headerSpacer {
+    height: 50px;
+}
+
+.gameContainer {
+    width: 95vw;
+    margin: auto;
+    border-bottom: 3px solid grey;
+}
+
+.gameWindow {
+    height: 300px;
+    width: 300px;
+    margin: 10px auto;
+    background-color: lightseagreen;
+    border: 2px solid grey;
+    border-radius: 7px;
+}
+
+.gameDescription {
+    font-size: large;
+    text-align: center;
+    margin: 10px auto;
+}
+
+@media (min-width: 576px) {
+    .gameContainer {
+        display: flex;
+        align-items: center;
+    }
+}
