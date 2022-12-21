@@ -21,24 +21,22 @@
 
         .board {
             display: grid;
-            grid-template-columns: 33.3% 33.3% 33.3%;
-            /* grid-template-rows: 30% 30% 30%; */
-            width: 70%;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            height: 80vh;
+            max-height: 90vw;
             margin: auto;
-
+            aspect-ratio: 1/1;
+            font-size: 5vh; /*קסביעת גודל טקסט זמנית*/
+            
         }
-
+        
         .cell {
             background-color: rgb(132, 206, 209);
             border: 3px solid rgb(2, 139, 144);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            width: 100%;
-            /* height: 100%; */
-            aspect-ratio: 1/1;
+            font-size: 2em;
+            /* align-self: stretch; */
             /* box-sizing: border-box; */
             /* padding: auto; */
 
@@ -53,8 +51,10 @@
         }
 
         #output {
-            font-size: x-large;
+            font-size: 1vm;
         }
+
+
     </style>
 </head>
 
@@ -82,7 +82,7 @@
         let playerX = true;
         let thereIsWinner = false;
         let turnCounter = 0;
-        for (let i = 0 ; i < board.length -1; i++){ //addEventListener
+        for (let i = 0; i < board.length - 1; i++) { //addEventListener
             document.getElementsByClassName("cell")[i].addEventListener("click", play)
         }
 
