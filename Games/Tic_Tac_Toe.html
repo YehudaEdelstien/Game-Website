@@ -5,26 +5,31 @@
     <title>Tic tac toe</title>
     <meta charset="UTF-8" />
 
-    <!--     *לסדר גודל*
+    <!--     
+        * טבלה סודר!| לסדר גודל*
     *צבעים*
     *להוסיף סאונד*
     *משחק באיקס או בעיגול*
  -->
-    <style>
-        body {
-            background-color: blanchedalmond;
+ <style>
+     body {
+         /* background-color: blanchedalmond; */
+         background-image: image-set("ti2.jpg");
+         color: aliceblue;
         }
 
         .center {
             text-align: center;
+            margin: 0;
+
         }
 
         .board {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
-            height: 80vh;
-            max-height: 90vw;
+            height: 80vmin;
+            max-height: 90vmax;
             margin: auto;
             aspect-ratio: 1/1;
             font-size: 5vh; /*קסביעת גודל טקסט זמנית*/
@@ -32,16 +37,28 @@
         }
         
         .cell {
-            background-color: rgb(132, 206, 209);
-            border: 3px solid rgb(2, 139, 144);
+            background-color: rgb(172, 227, 229);
+            border: 0.5vmin solid rgb(2, 139, 144);
             color: white;
-            font-size: 2em;
+            font-size: 10vmin;
             /* align-self: stretch; */
             /* box-sizing: border-box; */
             /* padding: auto; */
-
+            
         }
-
+        .emptyUp{
+            border-top: 0;
+        }
+        .emptyRight{
+            border-right: 0;
+        }
+        .emptyDown{
+            border-bottom: 0;
+        }
+        .emptyLeft{
+            border-left: 0;
+        }
+        
         .red {
             color: red;
         }
@@ -51,7 +68,8 @@
         }
 
         #output {
-            font-size: 1vm;
+            font-size: 4vmin;
+            
         }
 
 
@@ -63,15 +81,15 @@
     <h2 id="output" class="center"> <span class="red">X</span> VS <span class="blue">O</span></h2>
 
     <section class="board">
-        <button id="cell1" class="cell"></button>
-        <button id="cell2" class="cell"></button>
-        <button id="cell3" class="cell"></button>
-        <button id="cell4" class="cell"></button>
+        <button id="cell1" class="cell emptyUp emptyLeft"></button>
+        <button id="cell2" class="cell emptyUp"></button>
+        <button id="cell3" class="cell emptyUp emptyRight"></button>
+        <button id="cell4" class="cell emptyLeft"></button>
         <button id="cell5" class="cell"></button>
-        <button id="cell6" class="cell"></button>
-        <button id="cell7" class="cell"></button>
-        <button id="cell8" class="cell"></button>
-        <button id="cell9" class="cell"></button>
+        <button id="cell6" class="cell emptyRight"></button>
+        <button id="cell7" class="cell emptyDown emptyLeft"></button>
+        <button id="cell8" class="cell emptyDown"></button>
+        <button id="cell9" class="cell emptyDown emptyRight"></button>
     </section>
 
 
