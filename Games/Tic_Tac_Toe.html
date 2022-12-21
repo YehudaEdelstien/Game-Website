@@ -4,7 +4,7 @@
 <head>
     <title>Tic tac toe</title>
     <meta charset="UTF-8" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <!--     
         * טבלה סודר!| לסדר גודל*
     *צבעים*
@@ -12,50 +12,53 @@
     *משחק באיקס או בעיגול*
  -->
  <style>
+    
      body {
          /* background-color: blanchedalmond; */
-         background-image: image-set("ti2.jpg");
+         background-image: url("ti2.jpg");
          color: aliceblue;
         }
-
+        
         .center {
             text-align: center;
             margin: 0;
-
+            font-size: calc(8vh - 1vw);            
+            font-family: 'Indie Flower', Scursive;
+            font-weight: 800;
+            text-shadow: rgb(227, 255, 255) 1px 0 3px;
+            /* background-color: rgba(0, 0, 0, 0.449);             */
         }
-
+        
         .board {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
-            height: 80vmin;
+            height: 75vmin;
             max-height: 90vmax;
             margin: auto;
             aspect-ratio: 1/1;
-            font-size: 5vh; /*קסביעת גודל טקסט זמנית*/
             
         }
         
         .cell {
-            background-color: rgb(172, 227, 229);
+            background-color: rgba(172, 227, 229, 0.852);
             border: 0.5vmin solid rgb(2, 139, 144);
             color: white;
-            font-size: 10vmin;
-            /* align-self: stretch; */
-            /* box-sizing: border-box; */
-            /* padding: auto; */
-            
+            font-size: 15vmin;
+            font-family: 'Indie Flower', Scursive;
+            font-weight: bold;
+          
         }
-        .emptyUp{
+        .bUp{
             border-top: 0;
         }
-        .emptyRight{
+        .bRight{
             border-right: 0;
         }
-        .emptyDown{
+        .bDown{
             border-bottom: 0;
         }
-        .emptyLeft{
+        .bLeft{
             border-left: 0;
         }
         
@@ -68,28 +71,33 @@
         }
 
         #output {
-            font-size: 4vmin;
+            /* font-size: 4vmin; */
+            color: rgb(0, 255, 225);
             
         }
 
-
+        @import url('IndieFlower-Regular.ttf');
     </style>
 </head>
 
 <body>
     <h1 class="center">Tic tac toe</h1>
-    <h2 id="output" class="center"> <span class="red">X</span> VS <span class="blue">O</span></h2>
+    <h2 id="output" class="center"> 
+        <span class="red">X</span>
+         VS 
+         <span class="blue">O</span>
+    </h2>
 
     <section class="board">
-        <button id="cell1" class="cell emptyUp emptyLeft"></button>
-        <button id="cell2" class="cell emptyUp"></button>
-        <button id="cell3" class="cell emptyUp emptyRight"></button>
-        <button id="cell4" class="cell emptyLeft"></button>
+        <button id="cell1" class="cell bUp bLeft"></button>
+        <button id="cell2" class="cell bUp"></button>
+        <button id="cell3" class="cell bUp bRight"></button>
+        <button id="cell4" class="cell bLeft"></button>
         <button id="cell5" class="cell"></button>
-        <button id="cell6" class="cell emptyRight"></button>
-        <button id="cell7" class="cell emptyDown emptyLeft"></button>
-        <button id="cell8" class="cell emptyDown"></button>
-        <button id="cell9" class="cell emptyDown emptyRight"></button>
+        <button id="cell6" class="cell bRight"></button>
+        <button id="cell7" class="cell bDown bLeft"></button>
+        <button id="cell8" class="cell bDown"></button>
+        <button id="cell9" class="cell bDown bRight"></button>
     </section>
 
 
