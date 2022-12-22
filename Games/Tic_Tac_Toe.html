@@ -4,76 +4,103 @@
 <head>
     <title>Tic tac toe</title>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <!--     
         * טבלה סודר!| לסדר גודל*
     *צבעים*
     *להוסיף סאונד*
     *משחק באיקס או בעיגול*
  -->
- <style>
-    
-     body {
-         /* background-color: blanchedalmond; */
-         background-image: url("ti2.jpg");
-         color: aliceblue;
-        }
-        
-        .center {
+    <style>
+        .Text {
             text-align: center;
-            margin: 0;
-            font-size: calc(8vh - 1vw);            
+            margin: auto;
             font-family: 'Indie Flower', Scursive;
             font-weight: 800;
-            text-shadow: rgb(227, 255, 255) 1px 0 3px;
-            /* background-color: rgba(0, 0, 0, 0.449);             */
         }
-        
+
         .board {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
             height: 75vmin;
             max-height: 90vmax;
-            margin: auto;
+            margin-left: auto;
+            margin-right: auto;
+            /* margin-top: -4vh; */
             aspect-ratio: 1/1;
-            
+
         }
-        
+
         .cell {
             background-color: rgba(172, 227, 229, 0.852);
             border: 0.5vmin solid rgb(2, 139, 144);
             color: white;
-            font-size: 15vmin;
             font-family: 'Indie Flower', Scursive;
             font-weight: bold;
-          
+            font-size: 15vmin;
         }
-        .bUp{
+
+        .bUp {
             border-top: 0;
         }
-        .bRight{
+
+        .bRight {
             border-right: 0;
         }
-        .bDown{
+
+        .bDown {
             border-bottom: 0;
         }
-        .bLeft{
+
+        .bLeft {
             border-left: 0;
         }
-        
+
         .red {
             color: red;
+            text-shadow: rgb(180, 0, 0) 2px 0 2px;
+
         }
 
         .blue {
             color: blue;
+            text-shadow: rgb(0, 0, 180) 2px 0 2px;
+        }
+
+        #header {
+            font-size: calc(4vw + 1vh);
+            /* font-optical-sizing: auto; */
+            width: 80vW;
+            max-lines:  1;
+            max-width: 400px;
+            /* height: 10vh; */
+            /* text-shadow: rgb(231, 48, 48) 2px 0 2px; */
+
+
         }
 
         #output {
-            /* font-size: 4vmin; */
-            color: rgb(0, 255, 225);
-            
+            font-size: calc(3vw - 1vh);
+            border-radius: 40%;
+            background-color: rgba(0, 0, 0, 0.583);
+            width: 50VW;
+            max-width: 200px;
+            /* margin-top: -4vh; */
+            margin-bottom: 2vh;
+
+        }
+
+        body {
+            /* background-color: rgba(0, 0, 0, 0.235); */
+            background-image: url("ti2.jpg");
+            color: aliceblue;
+            /* display: grid; */
+            /* grid-template-rows: auto auto auto; */
+            /* justify-content: space-between; */
+            /* row-gap: 0.5vh; */
         }
 
         @import url('IndieFlower-Regular.ttf');
@@ -81,13 +108,13 @@
 </head>
 
 <body>
-    <h1 class="center">Tic tac toe</h1>
-    <h2 id="output" class="center"> 
+    <h1 id="header" class="Text">Tic tac toe</h1>
+    <h2 id="output" class="Text">
         <span class="red">X</span>
-         VS 
-         <span class="blue">O</span>
+        VS
+        <span class="blue">O</span>
     </h2>
-
+        <br>
     <section class="board">
         <button id="cell1" class="cell bUp bLeft"></button>
         <button id="cell2" class="cell bUp"></button>
@@ -146,7 +173,7 @@
                 cell.innerText = XorO;
                 board[cell.id.slice(4)] = XorO;
                 console.log(board);
-                cell.style.color = XorO == "X" ? "#f14d4d" : "#4e4ed7";
+                cell.classList.add(XorO == "X" ? "red" : "blue")
 
                 return true;
             } else {
