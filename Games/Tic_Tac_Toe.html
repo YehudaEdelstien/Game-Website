@@ -133,30 +133,55 @@
         const board = [null, "", "", "", "", "", "", "", "", ""]
         const output = document.getElementById("output")
         let playerX = true;
-        let thereIsWinner = false;
         let turnCounter = 0;
+        // let vsCom = false;
+        let vsCom = true;
+        
+
         for (let i = 0; i < board.length - 1; i++) { //addEventListener
             document.getElementsByClassName("cell")[i].addEventListener("click", play)
         }
+
+
 
         ////////////////////////////////////////////////
 
         function play() {
             if (gameFinished()) return;
 
-            let makeMove = set(this, playerX ? "X" : "O");
+            let makeMove = set(this, playerX ? "X" : "O"); //Player plays
+
             if (makeMove) {
-                winCheck();
                 setOutput();
                 turnCounter++;
                 playerX = !playerX;
+
+                if (vsCom && turnCounter <9) { // compueter plays
+                    do {
+                        console.log('we here')
+                        makeMove = COM();
+                        setOutput();
+                        
+                    } while (!makeMove);
+                    turnCounter++;
+                    playerX = !playerX;
+
+                }
+
             }
 
         }
 
+        function COM() {
+            let random = Math.floor(Math.random() * (9));
+            let cell = document.getElementsByClassName('cell');
+            let makeMove = set(cell[random],  playerX ? "X" : "O");
+            return makeMove;
+            
+        }
 
         function gameFinished() {
-            if (thereIsWinner) {
+            if (winCheck()) {
                 return true
 
             } else if (turnCounter == 9) {
@@ -173,6 +198,7 @@
                 cell.innerText = XorO;
                 board[cell.id.slice(4)] = XorO;
                 console.log(board);
+
                 cell.classList.add(XorO == "X" ? "red" : "blue")
 
                 return true;
@@ -185,7 +211,7 @@
         function setOutput() {
             let reload = '<br><button onclick="window.location.reload()"> Play Again </button>'
 
-            if (thereIsWinner) {
+            if (winCheck()) {
                 output.innerHTML = playerX ? "X Win!" + reload : "O Win!" + reload;
                 output.classList.add(playerX ? "red" : "blue");
 
@@ -218,8 +244,9 @@
             if (line1 || line2 || line3 ||
                 column1 || column2 || column3
                 || diag1 || diag2) {
-                thereIsWinner = true;
+                return true;
             }
+            return false;
         }
 
     </script>
