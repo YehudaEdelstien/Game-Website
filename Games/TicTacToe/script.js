@@ -8,7 +8,6 @@ let turnCounter = 0;
 let vsCom = true;
 // let vsAI = false
 let vsAI = true;
-getScore()
 
 for (let i = 0; i < board.length - 1; i++) { //addEventListener
     document.getElementsByClassName("cell")[i].addEventListener("click", play)
@@ -63,21 +62,15 @@ function comDumpPlay() {
 }
 
 function comSmartPlay() {
-    let result1 = checkAI(playerX ? 'X' : 'O');
-    let result2 = checkAI(!playerX ? 'X' : 'O');
+    let movement = checkAI(playerX ? 'X' : 'O') || checkAI(!playerX ? 'X' : 'O');
 
-    if (result1) {
-        set(document.getElementById(result1), playerX ? 'X' : 'O')
-        console.log(result1);
-    }
-    else if (result2) {
-        console.log(result2);
-        set(document.getElementById(result2), playerX ? 'X' : 'O')
-    }
-    else {
+    if (movement) {
+        set(document.getElementById(movement), playerX ? 'X' : 'O')
+        console.log(movement);
+
+    } else {
         randomCOM()
     }
-
     endTurn()
 }
 
@@ -223,16 +216,16 @@ function setOutput() {
 
 
 function winCheck() {
-
-    //all those variables used to check if is there 1 line or column with "x" or "o" 
-    let line1 = board[1] != "" && board[1] == board[2] && board[2] == board[3],
-        line2 = board[4] != "" && board[4] == board[5] && board[5] == board[6],
-        line3 = board[7] != "" && board[7] == board[8] && board[8] == board[9],
-        column1 = board[1] != "" && board[1] == board[4] && board[4] == board[7],
-        column2 = board[2] != "" && board[2] == board[5] && board[5] == board[8],
-        column3 = board[3] != "" && board[3] == board[6] && board[6] == board[9],
-        diag1 = board[1] != "" && board[1] == board[5] && board[5] == board[9],
-        diag2 = board[3] != "" && board[3] == board[5] && board[5] == board[7];
+    const B = board;
+    //all those variables used to check if is there 1 line or column with "X" or "O" 
+    let line1 = B[1] != "" && B[1] == B[2] && B[2] == B[3],
+        line2 = B[4] != "" && B[4] == B[5] && B[5] == B[6],
+        line3 = B[7] != "" && B[7] == B[8] && B[8] == B[9],
+        column1 = B[1] != "" && B[1] == B[4] && B[4] == B[7],
+        column2 = B[2] != "" && B[2] == B[5] && B[5] == B[8],
+        column3 = B[3] != "" && B[3] == B[6] && B[6] == B[9],
+        diag1 = B[1] != "" && B[1] == B[5] && B[5] == B[9],
+        diag2 = B[3] != "" && B[3] == B[5] && B[5] == B[7];
 
     if (line1 || line2 || line3 ||
         column1 || column2 || column3
@@ -242,6 +235,10 @@ function winCheck() {
     return false;
 }
 
-function getScore() {
-
+function scoreObj() {
+    obj = {
+        vsCom: 0,
+        vsAI: 0,
+        vsFriend: 0
+    }
 }
