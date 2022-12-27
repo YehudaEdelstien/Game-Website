@@ -1,4 +1,4 @@
-body, fieldset {
+body {
     margin: 0;
 }
 
@@ -26,10 +26,17 @@ input, button{
     margin: auto;
 }
 
-
-
 @media (min-width: 576px) {
     .forms {
         display: flex;
+        height: 70vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .formContainer {
+        width: 250px;
+        margin: 20px 10px;
+        flex-shrink: 0;
     }
 }

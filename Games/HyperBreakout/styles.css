@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #eeeeee;
+}
+
+p, div {
+    user-select: none;
+}
+
+canvas {
+    background-color: cornsilk;
+    margin: auto;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+canvas:hover {
+    cursor: none;
+}
+
+#gameWindow {
+    position: relative;
+    width: 560px;
+    height: 500px;
+    border: 2px solid black;
+    margin: 50px auto;
+}
+
+#startScreen {
+    opacity: 0.5;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 250px;
+    height: 400px;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    animation-name: pulse;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse {
+    0%   {opacity: 0.5;}
+    50%  {opacity: 0.2;}
+    100% {opacity: 0.5;}
+}
+
+#scoreDiv {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#scoreDiv .scoreNums {
+    font-size: 50px;
+    font-weight: initial;
+}
