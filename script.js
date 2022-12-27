@@ -1,4 +1,4 @@
-const dataBase ="webGameData";
+const dataBase = "webGameData";
 
 class userData {
     constructor(name, user, email, password) {
@@ -12,7 +12,8 @@ class userData {
 
 window.onload = () => {
     if (!getUsers()) { // check if isn't there a dataBase
-        localStorage.setItem(dataBase, "[]"); // made dataBase
+        const logedUser = ['none'];
+        localStorage.setItem(dataBase, JSON.stringify(logedUser)); // made dataBase
     }
 
     document.getElementById("regButton").addEventListener("click", signIn);
@@ -21,7 +22,7 @@ window.onload = () => {
 }
 
 function signIn() {
-    
+
     let user = document.getElementById("nUser").value; // get new user value
     if (doesUserExist(user)) {
         alert("you alredy here! please log in.") // ❗upgrade later
@@ -37,8 +38,14 @@ function logIn() {
     let pass = document.getElementById("password").value;
     const obj = doesUserExist(user)
     if (obj.password == pass) {
+        const arr = getUsers();
+        arr[0] = user;
+        localStorage.setItem(dataBase, JSON.stringify(arr));
         console.log("yey")
-    }
+
+    } else {
+        alert('Error')
+    };
 
 }
 
@@ -52,6 +59,15 @@ function doesUserExist(user) {
         }
     }
     return false;
+}
+function updateUserData(user,obj) { ///❗❗❗
+    const arr = getUsers();
+
+    for (let index in arr) {
+        if (user == arr[index].user) {
+            arr[index] = obj;
+        }
+    }
 }
 
 function createObjUser() {

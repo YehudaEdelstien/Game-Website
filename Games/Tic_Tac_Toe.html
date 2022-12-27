@@ -14,7 +14,7 @@
     *משחק באיקס או בעיגול*
  -->
     <style>
-        .Text {
+        .text {
             text-align: center;
             margin: auto;
             font-family: 'Indie Flower', Scursive;
@@ -92,6 +92,9 @@
             margin-bottom: 2vh;
 
         }
+        #score{
+            background-color: black;
+        }
 
         body {
             /* background-color: rgba(0, 0, 0, 0.235); */
@@ -108,13 +111,15 @@
 </head>
 
 <body>
-    <h1 id="header" class="Text">Tic tac toe</h1>
-    <h2 id="output" class="Text">
-        <span class="red">X</span>
-        VS
-        <span class="blue">O</span>
-    </h2>
-    <br>
+    <header>
+        <h1 id="header" class="text">Tic tac toe</h1>
+        <h2 id="output" class="text">
+            <span class="red">X</span>
+            VS
+            <span class="blue">O</span>
+        </h2>
+        <p class="text" id="score">score x = 0 | o = 0</p>
+    </header>
     <section class="board">
         <button id="cell1" class="cell bUp bLeft"></button>
         <button id="cell2" class="cell bUp"></button>
@@ -133,14 +138,15 @@
         const board = [null, "", "", "", "", "", "", "", "", ""]
         const output = document.getElementById("output")
 
+        let waitForBot = false;
         let playerX = true;
         let turnCounter = 0;
         // let vsCom = false;
         let vsCom = true;
         // let vsAI = false
         let vsAI = true;
-
-
+        getScore()
+        
         for (let i = 0; i < board.length - 1; i++) { //addEventListener
             document.getElementsByClassName("cell")[i].addEventListener("click", play)
         }
@@ -150,19 +156,24 @@
         ////////////////////////////////////////////////
 
         function play() {
-            if (gameFinished()) return;
+            if (gameFinished() || waitForBot) return;
 
             let makeMove = set(this, playerX ? "X" : "O"); //Player plays
 
             if (makeMove) {
                 endTurn()
 
-                if (vsCom && !gameFinished()) { //🤖 compueter plays
-                    if (vsAI) {
-                        setTimeout(comSmartPlay(), 400);
-                        return 
-                    }
-                    setTimeout(comDumpPlay(), 400)
+                if (vsCom && !gameFinished()) {
+                    waitForBot = true;
+                    setTimeout(() => { //🤖 compueter plays
+                        if (vsAI) {
+                            comSmartPlay();
+                            waitForBot = false;
+                            return
+                        }
+                        comDumpPlay();
+                        waitForBot = false;
+                    }, 600);
                 }
 
             }
@@ -366,6 +377,10 @@
                 return true;
             }
             return false;
+        }
+
+        function getScore() {
+
         }
 
     </script>
