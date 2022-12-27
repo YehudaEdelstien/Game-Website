@@ -1,0 +1,94 @@
+.text {
+    text-align: center;
+    margin: auto;
+    font-family: 'Indie Flower', Scursive;
+    font-weight: 800;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 75vmin;
+    max-height: 90vmax;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: -4vh; */
+    aspect-ratio: 1/1;
+
+}
+
+.cell {
+    background-color: rgba(172, 227, 229, 0.852);
+    border: 0.5vmin solid rgb(2, 139, 144);
+    color: white;
+    font-family: 'Indie Flower', Scursive;
+    font-weight: bold;
+    font-size: 15vmin;
+}
+
+.bUp {
+    border-top: 0;
+}
+
+.bRight {
+    border-right: 0;
+}
+
+.bDown {
+    border-bottom: 0;
+}
+
+.bLeft {
+    border-left: 0;
+}
+
+.red {
+    color: red;
+    text-shadow: rgb(180, 0, 0) 2px 0 2px;
+
+}
+
+.blue {
+    color: blue;
+    text-shadow: rgb(0, 0, 180) 2px 0 2px;
+}
+
+#header {
+    font-size: 50px;
+    /* font-optical-sizing: auto; */
+    /* width: 80vW; */
+    max-lines: 1;
+    max-width: 400px;
+    /* height: 10vh; */
+    /* text-shadow: rgb(231, 48, 48) 2px 0 2px; */
+
+
+}
+
+#output {
+    font-size: 30px;
+    border-radius: 40%;
+    background-color: rgba(0, 0, 0, 0.583);
+    width: 50VW;
+    max-width: 200px;
+    /* margin-top: -4vh; */
+    margin-bottom: 2vh;
+
+}
+
+#score {
+    background-color: black;
+}
+
+body {
+    /* background-color: rgba(0, 0, 0, 0.235); */
+    background-image: url("ti2.jpg");
+    color: aliceblue;
+    /* display: grid; */
+    /* grid-template-rows: auto auto auto; */
+    /* justify-content: space-between; */
+    /* row-gap: 0.5vh; */
+}
+
+@import url('IndieFlower-Regular.ttf');

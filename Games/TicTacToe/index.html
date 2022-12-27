@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tic tac toe</title>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <!--     
+        * טבלה סודר!| לסדר גודל*
+    *צבעים*
+    *להוסיף סאונד*
+    *משחק באיקס או בעיגול*
+ -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1 id="header" class="text">Tic tac toe</h1>
+        <h2 id="output" class="text">
+            <span class="red">X</span>
+            VS
+            <span class="blue">O</span>
+        </h2>
+        <p class="text" id="score">score x = 0 | o = 0</p>
+    </header>
+    <section class="board">
+        <button id="cell1" class="cell bUp bLeft"></button>
+        <button id="cell2" class="cell bUp"></button>
+        <button id="cell3" class="cell bUp bRight"></button>
+        <button id="cell4" class="cell bLeft"></button>
+        <button id="cell5" class="cell"></button>
+        <button id="cell6" class="cell bRight"></button>
+        <button id="cell7" class="cell bDown bLeft"></button>
+        <button id="cell8" class="cell bDown"></button>
+        <button id="cell9" class="cell bDown bRight"></button>
+    </section>
+    <script src="../../usersManager.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
