@@ -12,7 +12,7 @@ const colorsArr = ['red', 'blue', 'green', 'violet'
 
 let x = 0;
 let y = 0;
-let playerSize = 500
+let playerSize = 50
 let pPos = 40;
 let px = 200//20;
 let py = 150 //canvas.height - 40 - playerSize;
@@ -102,7 +102,12 @@ function getColision(x1, y1, w1, h1, x2, y2, w2, h2) {
         x1 > x2     &&  x1 < x2+w2    &&  y1 > y2   &&  y1 < y2+h2   ||
         x1+w1 > x2  &&  x1+w1 < x2+w2 &&  y1 > y2   &&  y1 < y2+h2   ||
         x1 > x2     && x1 < x2+w2     && y1+h1 > y2 && y1+h1 < y2+h2 ||
-        x1+w1 > x2  && x1+w1 < x2+w2  && y1+h1 > y2 && y1+h1 < y2+h2
+        x1+w1 > x2  && x1+w1 < x2+w2  && y1+h1 > y2 && y1+h1 < y2+h2 ||
+
+        x2 > x1     &&  x2 < x1+w1    &&  y2 > y1   &&  y2 < y1+h1   ||
+        x2+w2 > x1  &&  x2+w2 < x1+w1 &&  y2 > y1   &&  y2 < y1+h1   ||
+        x2 > x1     && x2 < x1+w1     && y2+h2 > y1 && y2+h2 < y1+h1 ||
+        x2+w2 > x1  && x2+w2 < x1+w1  && y2+h2 > y1 && y2+h2 < y1+h1
     ) {
         console.log('we have colision!!!');
         return true;
