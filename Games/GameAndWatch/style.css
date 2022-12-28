@@ -1,4 +1,4 @@
-div {
+.button {
     height: 300px;
     width: 100px;
     background-color: blueviolet;
@@ -11,5 +11,7 @@ div {
 
 section {
     display: flex;
+    margin-top: 3vh;
+    
     
 }

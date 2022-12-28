@@ -13,6 +13,7 @@ const colorsArr = ['red', 'blue', 'green', 'violet'
 let x = 0;
 let y = 0;
 let playerSize = 50
+let pPos = 20;
 let px = 20;
 let py = canvas.height - 40 - playerSize;
 let valueX = -1;
@@ -89,10 +90,10 @@ function movePlayer(num) {
 }
 
 function move() {
-    if (px <= 0 || px >= canvas.width - playerSize) {
-        movePlayer(-50)
+    if (px <= 0 || px >= canvas.width - playerSize - 20) {
+        pPos *= -1;
     }
-    movePlayer(50)
+    movePlayer(pPos)
 }
 
 
