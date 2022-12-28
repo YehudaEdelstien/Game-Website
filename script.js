@@ -27,6 +27,9 @@ function signIn() {
 
     } else {
         addUser(createObjUser())
+        setCurrentUser(user)
+        alert('Welcome!');
+        location.href = "/GamesMenu/games.html";
     }
 
 }
@@ -37,8 +40,9 @@ function logIn() {
     const obj = doesUserExist(user)
 
     if (obj.password == pass) {
-        setCurrentUser(user)
-        alert('wellcome')
+        setCurrentUser(user);
+        alert('Welcome!');
+        location.href = "/GamesMenu/games.html";
     } else {
         alert('Error')
     };

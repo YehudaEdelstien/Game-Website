@@ -18,6 +18,8 @@ canvas {
     position: absolute;
     left: 0;
     right: 0;
+    border: 2px solid black;
+    border-top: 0;
 }
 
 canvas:hover {
@@ -30,6 +32,7 @@ canvas:hover {
     height: 500px;
     border: 2px solid black;
     margin: 50px auto;
+    background-color: cornsilk;
 }
 
 #startScreen {
@@ -53,9 +56,9 @@ canvas:hover {
 }
 
 @keyframes pulse {
-    0%   {opacity: 0.5;}
-    50%  {opacity: 0.2;}
-    100% {opacity: 0.5;}
+    0%   {opacity: 0.5; transform: scale(1.05)}
+    50%  {opacity: 0.2; transform: scale(1)}
+    100% {opacity: 0.5; transform: scale(1.05)}
 }
 
 #scoreDiv {

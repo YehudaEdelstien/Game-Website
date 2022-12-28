@@ -13,6 +13,11 @@ function setUsersDB(arr = []) { // מקבל מערך נתונים ומכניס �
 
 }
 
+function getCurrentUser() {
+    const arr = getUsersDB(); 
+    return arr[0];
+    
+}
 
 function setCurrentUser(user = 'none') {// רושם משתמש נוכחי שנכנס למערכת
     const arr = getUsersDB();           // אם לא מקבל פרמטר, מוציא את המשתמש מהמערכת

@@ -22,15 +22,37 @@ header a {
     display: flex;
     align-items: center;
     font-size: large;
-    border: 1px solid bisque;
+    border: 1px solid silver;
 }
 
 .headerSpacer {
     height: 50px;
 }
 
+.dropdownButton:hover {
+    background-color: lightblue;
+}
+
 .dropdownMenu {
+    display: none;
     position: absolute;
     width: 100%;
+    top: 100%;
     overflow: auto;
+}
+
+.dropdownButton:hover .dropdownMenu {
+    display: block;
+}
+
+.dropdownMenu a {
+    display: block;
+    background-color: lightgrey;
+    border: 1px silver solid;
+    border-top: 0;
+    padding: 15px 5px;
+}
+
+.dropdownMenu a:hover {
+    background-color: lightblue;
 }
