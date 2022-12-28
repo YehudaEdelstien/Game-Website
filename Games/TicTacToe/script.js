@@ -1,5 +1,5 @@
 const board = [null, "", "", "", "", "", "", "", "", ""]
-const output = document.getElementById("output")
+let output;
 
 let waitForBot = false;
 let playerX = true;
@@ -9,8 +9,11 @@ let vsCom = true;
 // let vsAI = false
 let vsAI = true;
 
-for (let i = 0; i < board.length - 1; i++) { //addEventListener
-    document.getElementsByClassName("cell")[i].addEventListener("click", play)
+window.onload = () => {
+    for (let i = 0; i < board.length - 1; i++) { //addEventListener
+        document.getElementsByClassName("cell")[i].addEventListener("click", play)
+        output = document.getElementById("output")
+    }
 }
 
 
@@ -61,7 +64,7 @@ function comDumpPlay() {
     endTurn();
 }
 
-function comSmartPlay() {
+function comSmartPlay() { 
     let movement = checkAI(playerX ? 'X' : 'O') || checkAI(!playerX ? 'X' : 'O');
 
     if (movement) {
