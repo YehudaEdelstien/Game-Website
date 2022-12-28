@@ -19,10 +19,13 @@ function getCurrentUser() {
     
 }
 
-function setCurrentUser(user = 'none') {// רושם משתמש נוכחי שנכנס למערכת
+function setCurrentUser(user = null) {// רושם משתמש נוכחי שנכנס למערכת
     const arr = getUsersDB();           // אם לא מקבל פרמטר, מוציא את המשתמש מהמערכת
     arr[0] = user;
     setUsersDB(arr);
+    if (user === null) {
+        location.href = "/index.html";
+    }
 }
 
 function doesUserExist(user) { // בודק עם המשתמש קיים ומחזיר את האובייקט שלו

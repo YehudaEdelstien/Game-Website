@@ -11,8 +11,8 @@ class userData {
 
 window.onload = () => {
     if (!getUsersDB()) { // check if isn't there a dataBase
-        const logedUser = ['none'];
-        localStorage.setItem(dataBase, JSON.stringify(logedUser)); // made dataBase
+        const currentUser = [null];
+        localStorage.setItem(dataBase, JSON.stringify(currentUser)); // made dataBase
     }
     document.getElementById('regButton').addEventListener('click', signIn);
     document.getElementById('loginButton').addEventListener('click', logIn);

@@ -45,14 +45,14 @@ header a {
     display: block;
 }
 
-.dropdownMenu a {
-    display: block;
+.dropdownMenu p {
+    margin: 0;
+    padding: 15px 5px;
     background-color: lightgrey;
     border: 1px silver solid;
     border-top: 0;
-    padding: 15px 5px;
 }
 
-.dropdownMenu a:hover {
+.dropdownMenu p:hover {
     background-color: lightblue;
 }
