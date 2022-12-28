@@ -28,3 +28,9 @@ header a {
 .headerSpacer {
     height: 50px;
 }
+
+.dropdownMenu {
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+}

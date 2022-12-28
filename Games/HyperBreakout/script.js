@@ -41,7 +41,7 @@ window.onload = () => {
 
     const ball = {
         radius: 10,
-        speed: 10,
+        speed: 9,
         xPos: 0,
         yPos: 0,
         angle: 0,
