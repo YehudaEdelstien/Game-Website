@@ -1,0 +1,15 @@
+div {
+    height: 300px;
+    width: 100px;
+    background-color: blueviolet;
+    color: aliceblue;
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    display: flex;
+    
+}

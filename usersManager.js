@@ -13,7 +13,7 @@ function setUsersDB(arr = []) { // מקבל מערך נתונים ומכניס �
 
 }
 
-function getCurrentUser() {
+function getCurrentUser() { //  מחזיר שם משתמש בסטרינג
     const arr = getUsersDB(); 
     return arr[0];
     
