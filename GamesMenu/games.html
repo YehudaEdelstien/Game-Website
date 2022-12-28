@@ -6,23 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games</title>
-    <link rel="stylesheet" href="navBar.css">
+    <link rel="stylesheet" href="/components/navBar.css">
+    <script src="/components/navbar.js"></script>
     <link rel="stylesheet" href="gamesStyle.css">
     <script src="/usersManager.js"></script>
 </head>
 
 <body>
-    <header>
-        <a href="/GamesMenu/games.html" class="headerItem"><div>🕹️ היימשע גיימז</div></a>
-        <div class="headerItem dropdownButton">
-            <div>Hello, Guest⏬</div>
-            <div class="dropdownMenu">
-                <p>Profile</p>
-                <p onclick="setCurrentUser()">Log out</p>
-            </div>
-        </div>
-    </header>
-    <div class="headerSpacer"></div>
+    <custom-nav-bar></custom-nav-bar>
 
     <main>
         <a class="gameContainer" href="/Games/TicTacToe/Tic_Tac_Toe.html">
@@ -30,7 +21,7 @@
             <div class="gameDescription">Tic! Tac! Toe!</div>
         </a>
         <a class="gameContainer" href="/Games/HyperBreakout/Hyper_Breakout.html">
-            <div class="gameWindow"><img src="./previews/HyperBreakout-Preview.png" alt="Tic-Tac-Toe"></div>
+            <div class="gameWindow"><img src="./previews/HyperBreakout-Preview.png" alt="Hyper Breakout"></div>
             <div class="gameDescription">Hyper Breakout</div>
         </a>
         <a class="gameContainer">
