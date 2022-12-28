@@ -94,7 +94,7 @@ window.onload = () => {
     }
 
     let brickFallTimer = 0;
-    const brickFallSpeed = 0.1;
+    const brickFallSpeed = 0.2;
 
     // input
     const mousePos = {

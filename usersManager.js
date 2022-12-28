@@ -32,6 +32,8 @@ function doesUserExist(user) { // בודק עם המשתמש קיים ומחזי
     const arr = getUsersDB();
 
     for (const obj of arr) {
+        if (obj === null) continue;
+        
         if (user == obj.user) {
             return obj;
         }
