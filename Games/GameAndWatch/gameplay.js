@@ -9,12 +9,12 @@ const imgh = image.height * 0.1//0.08;
 
 const colorsArr = ['red', 'blue', 'green', 'violet'
 ];
+let colorPos = 0;
 
 let x = 0;
 let y = 0;
 let valueX = -1;
 let valueY = -1;
-let colorPos = 0;
 
 const playerSize = 50
 const pMovement = 40;
