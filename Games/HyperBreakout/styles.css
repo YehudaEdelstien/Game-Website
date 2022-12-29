@@ -12,7 +12,7 @@ p, div {
 }
 
 canvas {
-    background-color: cornsilk;
+    background-color: rgb(220, 241, 255);
     margin: auto;
     display: block;
     position: absolute;

@@ -110,6 +110,7 @@ window.onload = () => {
     function drawBall() {
         ctx.beginPath();
         ctx.arc(ball.xPos, ball.yPos, ball.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'green'
         ctx.fill();
         ctx.closePath();
     }
@@ -119,6 +120,7 @@ window.onload = () => {
         ctx.rect(x, y, w, h);
         ctx.strokeStyle = "blue";
         ctx.stroke();
+        ctx.fillStyle = 'yellow'
         ctx.fill();
         ctx.closePath();
     }
@@ -126,6 +128,7 @@ window.onload = () => {
     function drawPaddle() {
         ctx.beginPath();
         ctx.rect(paddle.xPos, paddle.yPos, paddle.width, paddle.height);
+        ctx.fillStyle = 'violet'
         ctx.fill();
         ctx.closePath();
     }
