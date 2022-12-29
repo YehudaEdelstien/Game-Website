@@ -12,15 +12,38 @@ const colorsArr = ['red', 'blue', 'green', 'violet'
 
 let x = 0;
 let y = 0;
-let playerSize = 50
-let pPos = 40;
-let px = 200//20;
-let py = 150 //canvas.height - 40 - playerSize;
 let valueX = -1;
 let valueY = -1;
 let colorPos = 0;
+
+const playerSize = 50
+const pMovement = 40;
+let px = 200//20;
+let py = 150 //canvas.height - 40 - playerSize;
+
+
 let winCounter = 0;
 
+document.addEventListener('keydown', (event) => {
+    let keyName =  event.key;
+    console.log("🚀 ~ file: gameplay.js:26 ~ document.addEventListener ~ keyName", keyName)
+    switch (keyName) {
+        case 'ArrowLeft':
+            px -= pMovement;
+            break;
+        case 'ArrowRight':
+            px += pMovement;
+            break
+        case 'ArrowUp':
+            py -= pMovement;
+            break;
+        case 'ArrowDown':
+            py += pMovement;
+            break
+        default:
+            break;
+    }
+})
 
 function main() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -91,10 +114,10 @@ function movePlayer(num) {
 }
 
 function move() {
-    if (px + pPos < 20 || px + pPos > canvas.width - playerSize) {
-        pPos *= -1;
+    if (px + pMovement < 20 || px + pMovement > canvas.width - playerSize) {
+        pMovement *= -1;
     }
-    movePlayer(pPos)
+    movePlayer(pMovement)
 }
 
 function getColision(x1, y1, w1, h1, x2, y2, w2, h2) {
@@ -113,6 +136,7 @@ function getColision(x1, y1, w1, h1, x2, y2, w2, h2) {
         return true;
     }
 }
+
 
 
 // setInterval(move, 1000 / 2)
