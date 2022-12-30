@@ -1,6 +1,12 @@
 .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text > * {
     text-align: center;
-    margin: auto;
+    color: aliceblue;
     font-family: 'Indie Flower', Scursive;
     font-weight: 800;
 }
@@ -9,11 +15,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    height: 75vmin;
-    max-height: 90vmax;
-    margin-left: auto;
-    margin-right: auto;
-    /* margin-top: -4vh; */
+    height: 65vmin;
+    max-height: 70vmax; 
     aspect-ratio: 1/1;
 
 }
@@ -24,7 +27,7 @@
     color: white;
     font-family: 'Indie Flower', Scursive;
     font-weight: bold;
-    font-size: 15vmin;
+    font-size: 10vmin;
 }
 
 .bUp {
@@ -49,21 +52,31 @@
 
 }
 
+.button {
+    color: rgb(255, 255, 255);
+    font-size: large;
+    background-color: rgba(0, 247, 255, 0.852);
+    border: 0.5vmin solid rgb(2, 139, 144);
+}
+
 .blue {
     color: blue;
     text-shadow: rgb(0, 0, 180) 2px 0 2px;
 }
 
+#main {
+    display: flex;
+    flex-direction: column;
+    /* grid-template-rows: auto auto auto; */
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
 #header {
-    font-size: 50px;
-    /* font-optical-sizing: auto; */
-    /* width: 80vW; */
-    max-lines: 1;
-    max-width: 400px;
-    /* height: 10vh; */
-    /* text-shadow: rgb(231, 48, 48) 2px 0 2px; */
-
-
+    font-size: 70px;
+    line-height: 70%;
+    margin-bottom: 0;
 }
 
 #output {
@@ -72,8 +85,8 @@
     background-color: rgba(0, 0, 0, 0.583);
     width: 50VW;
     max-width: 200px;
-    /* margin-top: -4vh; */
-    margin-bottom: 2vh;
+    margin: 5% auto;
+
 
 }
 
@@ -82,13 +95,24 @@
 }
 
 body {
-    /* background-color: rgba(0, 0, 0, 0.235); */
     background-image: url("ti2.jpg");
-    color: aliceblue;
-    /* display: grid; */
-    /* grid-template-rows: auto auto auto; */
-    /* justify-content: space-between; */
-    /* row-gap: 0.5vh; */
+    background-attachment: fixed;
+    height: 90%
+}
+
+html {
+    height: 100%
+}
+
+@media only screen and (orientation: portrait) {
+    #header {
+        font-size: 150px;
+    }
+
+    #output {
+        font-size: 60px;
+        max-width: 400px;
+    }
 }
 
 @import url('IndieFlower-Regular.ttf');

@@ -215,7 +215,7 @@ function set(cell, XorO) {
 
 // מדפיס סטרינג ללוח המצב
 function setOutput() {
-    let reload = '<br><button onclick="window.location.reload()"> Play Again </button>'
+    let reload = '  <button class="button" onclick="window.location.reload()"> Play Again </button>'
 
     if (winCheck()) {
         output.innerHTML = turnX ? "X Win!" + reload : "O Win!" + reload; // ניצח
