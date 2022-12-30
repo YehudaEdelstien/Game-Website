@@ -1,14 +1,24 @@
-const board = [null, "", "", "", "", "", "", "", "", ""]
-let output;
+//מערך ללוח
+const board = [null, "", "", "", "", "", "", "", "", ""] 
 
-let waitForBot = false;
-let playerX = true;
+// לוח מצב
+let output; 
+
+// חיובי: תור איקס | שלילי תור עיגול
+let turnX = true; 
+
+// סופר תורות
 let turnCounter = 0;
-// let vsCom = false;
-let vsCom = true;
-// let vsAI = false
-let vsAI = true;
 
+// מפעיל רובוט
+let vsCom = true; 
+// מפעיל רובוט רמה ב
+let vsSmartCom = false; 
+// מחכה לרובוט
+let waitForCom = false;
+
+
+// הרצה בטעינת העמוד
 window.onload = () => {
     for (let i = 0; i < board.length - 1; i++) { //addEventListener
         document.getElementsByClassName("cell")[i].addEventListener("click", play)
@@ -18,26 +28,25 @@ window.onload = () => {
 
 
 
-////////////////////////////////////////////////
-
+// מפעיל פעולות על המשבצת שנלחצה 
 function play() {
-    if (gameFinished() || waitForBot) return;
+    if (gameFinished() || waitForCom) return;
 
-    let makeMove = set(this, playerX ? "X" : "O"); //Player plays
+    let makeMove = set(this, turnX ? "X" : "O"); //👨‍🦰 Player plays
 
     if (makeMove) {
         endTurn()
 
         if (vsCom && !gameFinished()) {
-            waitForBot = true;
+            waitForCom = true;
+
             setTimeout(() => { //🤖 compueter plays
-                if (vsAI) {
+                if (vsSmartCom) {
                     comSmartPlay();
-                    waitForBot = false;
-                    return
+                } else {
+                    comDumpPlay();
                 }
-                comDumpPlay();
-                waitForBot = false;
+                waitForCom = false;
             }, 600);
         }
 
@@ -45,30 +54,35 @@ function play() {
 
 }
 
+//מסיים את התור
 function endTurn() {
     setOutput();
     turnCounter++;
-    playerX = !playerX;
+    turnX = !turnX;
 }
 
+// מחזיר משבצת פנויה רנדומלית בשביל הבוט
 function randomCOM() {
     let makeMove = false;
     while (!makeMove) {
         let random = Math.floor(Math.random() * (9));
         let cell = document.getElementsByClassName('cell');
-        makeMove = set(cell[random], playerX ? "X" : "O");
+        makeMove = set(cell[random], turnX ? "X" : "O");
     }
 }
+
+// רובוט רמה א
 function comDumpPlay() {
     randomCOM();
     endTurn();
 }
 
+//רובוט רמה ב
 function comSmartPlay() { 
-    let movement = checkAI(playerX ? 'X' : 'O') || checkAI(!playerX ? 'X' : 'O');
+    let movement = checkAI(turnX ? 'X' : 'O') || checkAI(!turnX ? 'X' : 'O');
 
     if (movement) {
-        set(document.getElementById(movement), playerX ? 'X' : 'O')
+        set(document.getElementById(movement), turnX ? 'X' : 'O')
         console.log(movement);
 
     } else {
@@ -77,6 +91,8 @@ function comSmartPlay() {
     endTurn()
 }
 
+// בודק אם יש שתי תווים צמודים ומחזיר את המשבצת הפנויה
+// משמש את בוט רמה ב כדי לנצח / לחסום
 function checkAI(char) {
     const B = board;
     if (
@@ -167,6 +183,7 @@ function checkAI(char) {
     }
 }
 
+// בודק אם נגמר המשחק
 function gameFinished() {
     if (winCheck()) {
         return true
@@ -180,7 +197,7 @@ function gameFinished() {
 }
 
 
-
+// מניח איקס / עיגול על הלוח לפי משבצת נתונה
 function set(cell, XorO) {
     if (cell.textContent == "") {
 
@@ -196,28 +213,28 @@ function set(cell, XorO) {
     }
 }
 
-
+// מדפיס סטרינג ללוח המצב
 function setOutput() {
     let reload = '<br><button onclick="window.location.reload()"> Play Again </button>'
 
     if (winCheck()) {
-        output.innerHTML = playerX ? "X Win!" + reload : "O Win!" + reload;
-        output.classList.add(playerX ? "red" : "blue");
+        output.innerHTML = turnX ? "X Win!" + reload : "O Win!" + reload; // ניצח
+        output.classList.add(turnX ? "red" : "blue"); 
 
     } else if (turnCounter == 8) {
-        output.innerHTML = "draw..." + reload;
+        output.innerHTML = "draw..." + reload; // תיקו
 
-    } else if (!playerX) {
-        output.innerHTML = "<span class = 'red'>X</span> <--- O";
+    } else if (!turnX) {
+        output.innerHTML = "<span class = 'red'>X</span> <--- O"; // תור איקס
     } else {
-        output.innerHTML = "X ---> <span class = 'blue'>O</span>";
+        output.innerHTML = "X ---> <span class = 'blue'>O</span>"; // תור עיגול
     }
 
 
 
 }
 
-
+// עובר על כל הלוח ומחפש ניצחון
 function winCheck() {
     const B = board;
     //all those variables used to check if is there 1 line or column with "X" or "O" 
@@ -238,6 +255,7 @@ function winCheck() {
     return false;
 }
 
+// בונה אובייקט ניקוד
 function scoreObj() {
     obj = {
         vsCom: 0,

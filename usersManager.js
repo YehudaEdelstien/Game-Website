@@ -1,26 +1,31 @@
 const dataBase = 'webGameData';
 
 
-function getUsersDB() {    // מחזיר מערך משתמשים מהדאטה-בייס
+// מחזיר מערך משתמשים מהדאטה-בייס
+function getUsersDB() { 
     const arr = JSON.parse(localStorage.getItem(dataBase));
     return arr;
 }
 
 
-function setUsersDB(arr = []) { // מקבל מערך נתונים ומכניס אותו לדאטה-בייס במקום הקודם
+// מקבל מערך נתונים ומכניס אותו לדאטה-בייס במקום הקודם
+function setUsersDB(arr = []) { 
     localStorage.setItem(dataBase, JSON.stringify(arr));
     console.log(getUsersDB());
 
 }
 
-function getCurrentUser() { //  מחזיר שם משתמש בסטרינג
+//  מחזיר שם משתמש בסטרינג
+function getCurrentUser() { 
     const arr = getUsersDB(); 
     return arr[0];
     
 }
 
-function setCurrentUser(user = null) {// רושם משתמש נוכחי שנכנס למערכת
-    const arr = getUsersDB();           // אם לא מקבל פרמטר, מוציא את המשתמש מהמערכת
+// רושם משתמש נוכחי שנכנס למערכת
+// אם לא מקבל פרמטר, מוציא את המשתמש מהמערכת
+function setCurrentUser(user = null) {
+    const arr = getUsersDB();           
     arr[0] = user;
     setUsersDB(arr);
     if (user === null) {
@@ -28,7 +33,8 @@ function setCurrentUser(user = null) {// רושם משתמש נוכחי שנכנ
     }
 }
 
-function doesUserExist(user) { // בודק עם המשתמש קיים ומחזיר את האובייקט שלו
+// בודק עם המשתמש קיים ומחזיר את האובייקט שלו
+function doesUserExist(user) {
     const arr = getUsersDB();
 
     for (const obj of arr) {
@@ -42,7 +48,8 @@ function doesUserExist(user) { // בודק עם המשתמש קיים ומחזי
 }
 
 
-function updateUserData(obj) { // מקבל גרסה חדשה של אוביקט ומעדכן את הגרסה הקודמת שלו בדאטה-בייס
+// מקבל גרסה חדשה של אוביקט ומעדכן את הגרסה הקודמת שלו בדאטה-בייס
+function updateUserData(obj) {
     const arr = getUsersDB();
 
     for (let index in arr) {
@@ -54,7 +61,8 @@ function updateUserData(obj) { // מקבל גרסה חדשה של אוביקט �
 }
 
 
-function addUser(obj) {     // מקבל אובייקט משתמש ומוסיף לדאטה-בייס
+// מקבל אובייקט משתמש ומוסיף לדאטה-בייס
+function addUser(obj) {    
     const arr = getUsersDB();
     arr.push(obj);
     setUsersDB(arr);
