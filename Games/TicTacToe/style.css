@@ -15,8 +15,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    min-height: 65vmin;
-    max-height: 70vmax; 
+    min-height: 55vmin;
+    max-height: 65vmax; 
     aspect-ratio: 1/1;
     box-sizing: border-box;
 
@@ -92,7 +92,11 @@
 }
 
 #score {
+    color: aliceblue;
     background-color: black;
+    min-width: 33vmin;
+    max-width: 35vmax; 
+    margin: auto;
 }
 
 body {
@@ -109,10 +113,15 @@ html {
     #header {
         font-size: 150px;
     }
-
+    
     #output {
         font-size: 60px;
         max-width: 400px;
+    }
+
+    #score {
+        font-size: 60px;
+
     }
 }
 

@@ -1,19 +1,27 @@
 //מערך ללוח
-const board = [null, "", "", "", "", "", "", "", "", ""] 
+const board = [null, "", "", "", "", "", "", "", "", ""]
 
 // לוח מצב
-let output; 
+let output;
 
 // חיובי: תור איקס | שלילי תור עיגול
-let turnX = true; 
+let turnX = true;
 
 // סופר תורות
 let turnCounter = 0;
 
+// ניקוד
+let score = 0;
+let scoreS = 0;
+// HighScore ניקוד
+let scoreDB = doesUserExist(getCurrentUser()).TicTacToe || 0;
+let highScore = scoreDB.vsCom || 0;
+let highScoreS = scoreDB.vsSmartCom || 0;
+
 // מפעיל רובוט
-let vsCom = true; 
+let vsCom = true;
 // מפעיל רובוט רמה ב
-let vsSmartCom = true; 
+let vsSmartCom = true;
 // מחכה לרובוט
 let waitForCom = false;
 
@@ -23,7 +31,9 @@ window.onload = () => {
     for (let i = 0; i < board.length - 1; i++) { //addEventListener
         document.getElementsByClassName("cell")[i].addEventListener("click", play)
         output = document.getElementById("output")
+        printScore();
     }
+
 }
 
 
@@ -53,6 +63,7 @@ function play() {
 //מסיים את התור
 function endTurn() {
     setOutput();
+    scoreUp();
     turnCounter++;
     turnX = !turnX;
 }
@@ -74,13 +85,11 @@ function comDumpPlay() {
 }
 
 //רובוט רמה ב
-function comSmartPlay() { 
+function comSmartPlay() {
     let movement = checkAI(turnX ? 'X' : 'O') || checkAI(!turnX ? 'X' : 'O');
 
     if (movement) {
         set(document.getElementById(movement), turnX ? 'X' : 'O')
-        console.log(movement);
-
     } else {
         randomCOM()
     }
@@ -201,7 +210,6 @@ function set(cell, XorO) {
         cell.classList.add(XorO == "X" ? "red" : "blue")
 
         board[cell.id.slice(4)] = XorO;
-        console.log(board);
 
         return true;
     } else {
@@ -211,19 +219,19 @@ function set(cell, XorO) {
 
 // מדפיס סטרינג ללוח המצב
 function setOutput() {
-    let reload = '  <button class="button" onclick="window.location.reload()"> Play Again </button>'
+    let reload = '  <button class="button" onclick="resetAll()"> Play Again </button>'
 
     if (winCheck()) {
         output.innerHTML = turnX ? "X Win!" + reload : "O Win!" + reload; // ניצח
-        output.classList.add(turnX ? "red" : "blue"); 
+        output.classList.add(turnX ? "red" : "blue");
 
     } else if (turnCounter == 8) {
         output.innerHTML = "draw..." + reload; // תיקו
 
-    } else if (!turnX) {
-        output.innerHTML = "<span class = 'red'>X</span> <--- O"; // תור איקס
-    } else {
+    } else if (turnX) {
         output.innerHTML = "X ---> <span class = 'blue'>O</span>"; // תור עיגול
+    } else {
+        output.innerHTML = "<span class = 'red'>X</span> <--- O"; // תור איקס
     }
 
 
@@ -243,19 +251,65 @@ function winCheck() {
         diag1 = B[1] != "" && B[1] == B[5] && B[5] == B[9],
         diag2 = B[3] != "" && B[3] == B[5] && B[5] == B[7];
 
-    if (line1 || line2 || line3 ||
+    if (
+        line1 || line2 || line3 ||
         column1 || column2 || column3
-        || diag1 || diag2) {
+        || diag1 || diag2
+    ) {
         return true;
     }
     return false;
 }
 
-// בונה אובייקט ניקוד
-function scoreObj() {
-    obj = {
-        vsCom: 0,
-        vsAI: 0,
-        vsFriend: 0
+function scoreUp() {
+    if (
+        !waitForCom &&
+        vsCom &&
+        winCheck()
+    ) {
+        if (vsCom) {
+            if (!vsSmartCom) {
+                score++
+                highScore++
+            } else {
+                scoreS++
+                highScoreS++
+            }
+        }
+        // highScore = (highScore > score) ? highScore : score;
+        // highScoreS = (highScoreS > scoreS) ? highScoreS : scoreS;
+
+        const userObj = doesUserExist(getCurrentUser());
+        userObj.TicTacToe = {
+            vsCom: highScore,
+            vsSmartCom: highScoreS,
+        };
+        updateUserData(userObj);
+        printScore();
+        console.log("🚀 ~ file: script.js:271 ~ scoreUp ~ score", scoreS)
     }
+}
+
+function printScore() {
+    document.getElementById("score").innerText =
+        `score ⬇️👇 ${getCurrentUser()}
+                this time / all time 
+        vs COM ${score} / ${highScore}
+        vs smart COM ${scoreS} / ${highScoreS}`;
+}
+
+function resetAll() {
+    for (let i = 1; i < board.length; i++) {
+        board[i] = '';
+        document.getElementById(`cell${i}`).innerText = '';
+        document.getElementById(`cell${i}`).classList.remove('blue');
+        document.getElementById(`cell${i}`).classList.remove('red');
+    }
+    output.classList.remove('blue')
+    output.classList.remove('red')
+    turnCounter = 0;
+    waitForCom = false;
+    turnX = false;
+    setOutput();
+    turnX = true;
 }
