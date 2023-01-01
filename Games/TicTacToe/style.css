@@ -15,9 +15,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    height: 65vmin;
+    min-height: 65vmin;
     max-height: 70vmax; 
     aspect-ratio: 1/1;
+    box-sizing: border-box;
 
 }
 

@@ -13,7 +13,7 @@ let turnCounter = 0;
 // מפעיל רובוט
 let vsCom = true; 
 // מפעיל רובוט רמה ב
-let vsSmartCom = false; 
+let vsSmartCom = true; 
 // מחכה לרובוט
 let waitForCom = false;
 
@@ -41,11 +41,7 @@ function play() {
             waitForCom = true;
 
             setTimeout(() => { //🤖 compueter plays
-                if (vsSmartCom) {
-                    comSmartPlay();
-                } else {
-                    comDumpPlay();
-                }
+                vsSmartCom ? comSmartPlay() : comDumpPlay();
                 waitForCom = false;
             }, 600);
         }
