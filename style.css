@@ -1,29 +1,64 @@
-body {
-    margin: 0;
+:root {
+    --color1: #fff9e8;
+    --color2: #6cd47f;
+    --color3: #293253;
 }
 
 body {
+    margin: 0;
     text-align: center;
     font-family: Arial;
+    background-color: var(--color1);
+    color: var(--color3);
 }
 
 input, button{
     display: block;
     height: 40px;
     width: 200px;
+    margin: auto;
+}
+
+input {
+    border: 1px solid grey;
+    border-bottom: none;
+}
+
+input:hover {
+    background-color: var(--color2);
+}
+
+input:first-of-type {
+    border-radius: 10px 10px 0 0;
+}
+
+input:last-of-type {
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+button {
+    border: 2px solid black;
+    border-radius: 4px 4px 10px 10px;
+}
+
+button:hover {
+    background-color: var(--color2);
 }
 
 .formContainer {
     width: 100vw;
     max-width: 300px;
     margin: 10px auto;
-    height: 300px;
+    height: 325px;
     box-sizing: border-box;
+    border: 3px inset var(--color2);
     border-radius: 15px;
+    background-color: white;
 }
 
-.formContainer *{
-    margin: auto;
+.formContainer h1 {
+    margin: 10px auto;
 }
 
 @media (min-width: 576px) {

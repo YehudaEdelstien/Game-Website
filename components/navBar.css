@@ -1,11 +1,19 @@
+:root {
+    --color1: #fff9e8;
+    --color2: #6cd47f;
+    --color3: #293253;
+}
+
 body {
     margin: 0;
+    background-color: var(--color1);
+    color: var(--color3);
 }
 
 .header {
     width: 100%;
     height: 50px;
-    background-color: lightgray;
+    background-color: #E8E3C8;
     display: flex;
     justify-content: space-between;
     position: fixed;
@@ -14,7 +22,7 @@ body {
 }
 
 .header a {
-    color: black;
+    color: var(--color3);
     text-decoration: none;
 }
 
@@ -22,16 +30,11 @@ body {
     display: flex;
     align-items: center;
     font-size: large;
-    border: 1px solid silver;
     user-select: none;
 }
 
 .headerSpacer {
     height: 50px;
-}
-
-.dropdownButton:hover {
-    background-color: lightblue;
 }
 
 .dropdownMenu {
@@ -50,11 +53,10 @@ body {
     margin: 0;
     padding: 15px 5px;
     background-color: lightgrey;
-    border: 1px silver solid;
     border-top: 0;
     cursor: pointer;
 }
 
 .dropdownMenu p:hover {
-    background-color: lightblue;
+    background-color: var(--color2);
 }
