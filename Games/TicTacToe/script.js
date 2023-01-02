@@ -294,7 +294,6 @@ function scoreUp() {
         };
         updateUserData(userObj);
         printScore();
-        console.log("🚀 ~ file: script.js:271 ~ scoreUp ~ score", scoreS)
     }
 }
 
@@ -305,6 +304,7 @@ function printScore() {
         vs COM ${score} / ${highScore}
         vs smart COM ${scoreS} / ${highScoreS}`;
 }
+
 
 function resetAll() {
     for (let i = 1; i < board.length; i++) {
