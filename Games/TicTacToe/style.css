@@ -130,7 +130,8 @@
 }
 
 body {
-    background-image: url("ti2.jpg");
+    background-image: url("background.png");
+    background-size: 15%;
     background-attachment: fixed;
     height: 90%
 }
@@ -153,6 +154,9 @@ html {
     #score {
         font-size: 50px;
 
+    }
+    body {
+        background-size: 40%;
     }
 
 }
