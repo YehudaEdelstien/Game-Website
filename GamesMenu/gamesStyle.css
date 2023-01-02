@@ -1,5 +1,5 @@
 :root {
-    --color1: #fff9e8;
+    --color1: #f1c95a;
     --color2: #6cd47f;
     --color3: #293253;
 }
@@ -26,7 +26,7 @@ a {
     width: 400px;
     margin: 10px auto;
     background-color: lightseagreen;
-    border: 2px inset var(--color2);
+    border: 10px outset var(--color2);
     border-radius: 7px;
     overflow: hidden;
     display: flex;

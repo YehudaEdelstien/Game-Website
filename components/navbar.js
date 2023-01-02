@@ -9,9 +9,9 @@ class Navbar extends HTMLElement {
         this.innerHTML = `
         <header class="header">
         <a href="/GamesMenu/games.html" class="headerItem"><div>🕹️ Heimeshe Games</div></a>
-        <div class="headerItem dropdownButton">
-            <div>Hello, ${username} ⏬</div>
-            <div class="dropdownMenu">
+        <div class="headerItem dropdownMenu">
+            <div class="dropdownButton">Hello, ${username} ⏬</div>
+            <div class="dropdownItem">
                 <p>Profile</p>
                 <p onclick="setCurrentUser()">Log out</p>
             </div>
