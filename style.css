@@ -1,5 +1,5 @@
 :root {
-    --color1: #fff9e8;
+    --color1: #f1c95a;
     --color2: #6cd47f;
     --color3: #293253;
 }
@@ -52,7 +52,7 @@ button:hover {
     margin: 10px auto;
     height: 325px;
     box-sizing: border-box;
-    border: 3px inset var(--color2);
+    border: 10px outset var(--color2);
     border-radius: 15px;
     background-color: white;
 }
