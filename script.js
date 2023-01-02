@@ -20,19 +20,28 @@ window.onload = () => {
 }
 
 function signIn() {
-
-    let user = document.getElementById('nUser').value; // get new user value
-    if (doesUserExist(user)) {
-        alert('you alredy here! please log in.') // ❗upgrade later
-
-    } else {
-        addUser(createObjUser())
-        setCurrentUser(user)
-        alert('Welcome!');
-        location.href = "/GamesMenu/games.html";
+    if (
+        document.getElementById('nName').value == '' ||
+        document.getElementById('nUser').value == '' ||
+        document.getElementById('nEmail').value == '' ||
+        document.getElementById('nPassword').value == ''
+    ) {
+        alert('invalid!');
+        return;
+    }
+        
+        let user = document.getElementById('nUser').value; // get new user value
+        if (doesUserExist(user)) {
+            alert('you alredy here! please log in.') // ❗upgrade later
+    
+        } else {
+            addUser(createObjUser())
+            setCurrentUser(user)
+            alert('Welcome!');
+            location.href = "/GamesMenu/games.html";
+        }
     }
 
-}
 
 function logIn() {
     let user = document.getElementById('user').value;
