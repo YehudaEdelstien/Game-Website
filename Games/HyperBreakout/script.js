@@ -149,6 +149,11 @@ let colorPos = 0;
         mousePos.x = e.clientX - canvas.getBoundingClientRect().left;
     }
 
+    document.ontouchmove = (e) => {
+        mousePos.x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+        console.log(e.touches[0].clientX - canvas.getBoundingClientRect().left);
+    }
+
     //Game functions
     function drawBall() {
         ctx.beginPath();

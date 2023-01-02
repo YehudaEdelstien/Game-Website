@@ -20,6 +20,7 @@ body {
     position: fixed;
     top: 0;
     font-family: Arial, Helvetica, sans-serif;
+    z-index: 1;
 }
 
 .header a {
@@ -31,6 +32,7 @@ body {
     display: flex;
     align-items: center;
     font-size: large;
+    -webkit-user-select: none;
     user-select: none;
 }
 

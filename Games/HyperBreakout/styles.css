@@ -1,14 +1,16 @@
 * {
     margin: 0;
     padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 body {
     background-color: #f1c95a;
 }
 
-p, div {
-    user-select: none;
+.hidemouse {
+    cursor: none;
 }
 
 canvas {
@@ -18,19 +20,16 @@ canvas {
     position: absolute;
     left: 0;
     right: 0;
+    top: 30px;
     border: 2px solid black;
-    border-top: 0;
-}
-
-canvas:hover {
-    cursor: none;
 }
 
 #gameWindow {
     position: relative;
     width: 560px;
     height: 500px;
-    border: 2px solid black;
+    border: 10px solid var(--color2);
+    border-radius: 30px;
     margin: 50px auto;
     background-color: cornsilk;
 }
@@ -41,36 +40,87 @@ canvas:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 250px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     text-align: center;
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
+    cursor: initial;
     animation-name: pulse;
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-@keyframes pulse {
-    0%   {opacity: 0.5; transform: scale(1.05)}
-    50%  {opacity: 0.2; transform: scale(1)}
-    100% {opacity: 0.5; transform: scale(1.05)}
+#startScreen p {
+    padding-bottom: 200px;
+    width: 250px;
 }
 
-#scoreDiv {
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(1.05)
+    }
+
+    50% {
+        opacity: 0.2;
+        transform: scale(1)
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: scale(1.05)
+    }
+}
+
+.scoreDivs {
     position: absolute;
-    left: 10px;
-    top: 10px;
     font-size: 20px;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+    width: 135px;
+    top: 30px;
 }
 
-#scoreDiv .scoreNums {
+#scoreDiv {
+    left: 10px;
+    text-align: right;
+}
+
+#highscoreDiv {
+    right: 10px;
+}
+
+.scoreNums {
     font-size: 50px;
     font-weight: initial;
+}
+
+@media (max-width: 610px) {
+    #gameWindow {
+        width: 80vw;
+    }
+
+    .scoreDivs{
+        top: 0;
+        width: 200px;
+        font-size: large;
+    }
+     
+    #scoreDiv {
+        text-align: left;
+    }
+
+    #highscoreDiv {
+        text-align: right;
+    }
+
+    .scoreDivs p{
+        display: inline;
+    }
+
+    .scoreNums{
+        font-size: medium;
+    }
 }

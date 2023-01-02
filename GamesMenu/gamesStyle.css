@@ -24,6 +24,7 @@ a {
 .gameWindow {
     height: 300px;
     width: 400px;
+    max-width: 90vw;
     margin: 10px auto;
     background-color: lightseagreen;
     border: 10px outset var(--color2);

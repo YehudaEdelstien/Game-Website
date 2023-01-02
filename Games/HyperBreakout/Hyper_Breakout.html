@@ -16,16 +16,18 @@
 <body>
     <custom-nav-bar></custom-nav-bar>
 
-    <section id="gameWindow">
+    <section id="gameWindow" class="hidemouse">
         <canvas id="canvas" width="250" height="400"></canvas>
         <div id="startScreen">
             <p>Tap to Start</p>
         </div>
-        <div id="scoreDiv">
-            <p>Best Score:</p>
-            <p id="highScore" class="scoreNums">000</p>
+        <div id="scoreDiv" class="scoreDivs">
             <p>Score:</p>
             <p id="score" class="scoreNums">000</p>
+        </div>
+        <div id="highscoreDiv" class="scoreDivs">
+            <p>Best Score:</p>
+            <p id="highScore" class="scoreNums">000</p>
         </div>
     </section>
 </body>
