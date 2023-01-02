@@ -9,6 +9,7 @@ let turnX = true;
 
 // סופר תורות
 let turnCounter = 0;
+let weHaveWinner = false;
 
 // ניקוד
 let score = 0;
@@ -46,7 +47,7 @@ function play() {
 
     if (makeMove) {
         endTurn()
-
+        
         if (vsCom && !gameFinished()) {
             waitForCom = true;
 
@@ -62,6 +63,7 @@ function play() {
 
 //מסיים את התור
 function endTurn() {
+    winCheck()
     setOutput();
     scoreUp();
     turnCounter++;
@@ -190,7 +192,7 @@ function checkAI(char) {
 
 // בודק אם נגמר המשחק
 function gameFinished() {
-    if (winCheck()) {
+    if (weHaveWinner) {
         return true
 
     } else if (turnCounter == 9) {
@@ -207,7 +209,8 @@ function set(cell, XorO) {
     if (cell.textContent == "") {
 
         cell.innerText = XorO;
-        cell.classList.add(XorO == "X" ? "red" : "blue")
+        cell.classList.add(XorO == "X" ? "red" : "blue");
+        cell.classList.add('animation');
 
         board[cell.id.slice(4)] = XorO;
 
@@ -219,23 +222,22 @@ function set(cell, XorO) {
 
 // מדפיס סטרינג ללוח המצב
 function setOutput() {
-    let reload = '  <button class="button" onclick="resetAll()"> Play Again </button>'
+    output.addEventListener('click', resetAll)
+    let tryAgain = '<br> <span class="playAgain"> Play Again </span> '
 
-    if (winCheck()) {
-        output.innerHTML = turnX ? "X Win!" + reload : "O Win!" + reload; // ניצח
+    if (weHaveWinner) {
+        output.innerHTML = turnX ? "X Win!" + tryAgain : "O Win!" + tryAgain; // ניצח
         output.classList.add(turnX ? "red" : "blue");
+        output.classList.add('animationOutput');
 
     } else if (turnCounter == 8) {
-        output.innerHTML = "draw..." + reload; // תיקו
+        output.innerHTML = "draw..." + tryAgain; // תיקו
 
     } else if (turnX) {
         output.innerHTML = "X ---> <span class = 'blue'>O</span>"; // תור עיגול
     } else {
         output.innerHTML = "<span class = 'red'>X</span> <--- O"; // תור איקס
     }
-
-
-
 }
 
 // עובר על כל הלוח ומחפש ניצחון
@@ -256,16 +258,22 @@ function winCheck() {
         column1 || column2 || column3
         || diag1 || diag2
     ) {
+        weHaveWinner = true;
+        drawCelllsCalc(
+            line1, line2, line3,
+            column1, column2, column3,
+            diag1, diag2)
         return true;
     }
-    return false;
+
+return false;
 }
 
 function scoreUp() {
     if (
         !waitForCom &&
         vsCom &&
-        winCheck()
+        weHaveWinner
     ) {
         if (vsCom) {
             if (!vsSmartCom) {
@@ -301,15 +309,45 @@ function printScore() {
 function resetAll() {
     for (let i = 1; i < board.length; i++) {
         board[i] = '';
-        document.getElementById(`cell${i}`).innerText = '';
-        document.getElementById(`cell${i}`).classList.remove('blue');
-        document.getElementById(`cell${i}`).classList.remove('red');
+
+        let cell = document.getElementById(`cell${i}`);
+        cell.innerText = '';
+        cell.classList.remove(
+            'red','redBG','blue','blueBG','animation' 
+        );
+
     }
-    output.classList.remove('blue')
-    output.classList.remove('red')
+    output.classList.remove(
+        'blue', 'red', 'animationOutput'
+    );
+
     turnCounter = 0;
     waitForCom = false;
     turnX = false;
+    weHaveWinner = false;
     setOutput();
     turnX = true;
+}
+
+function drawCelllsBG(cell1, cell2, cell3) {
+    let BGcolor = turnX ? 'redBG' : 'blueBG';
+    document.getElementById(`cell${cell1}`).classList.add(BGcolor);
+    document.getElementById(`cell${cell2}`).classList.add(BGcolor);
+    document.getElementById(`cell${cell3}`).classList.add(BGcolor);
+
+}
+
+function drawCelllsCalc(
+    line1, line2, line3,
+    column1, column2, column3,
+    diag1, diag2
+) {
+    if (line1) { drawCelllsBG(1, 2, 3) };
+    if (line2) { drawCelllsBG(4, 5, 6) };
+    if (line3) { drawCelllsBG(7, 8, 9) };
+    if (column1) { drawCelllsBG(1, 4, 7) };
+    if (column2) { drawCelllsBG(2, 5, 8) };
+    if (column3) { drawCelllsBG(3, 6, 9) };
+    if (diag1) { drawCelllsBG(1, 5, 9) };
+    if (diag2) { drawCelllsBG(3, 5, 7) };
 }

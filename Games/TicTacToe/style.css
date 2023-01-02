@@ -4,7 +4,7 @@
     justify-content: space-between;
 }
 
-.text > * {
+.text>* {
     text-align: center;
     color: aliceblue;
     font-family: 'Indie Flower', Scursive;
@@ -16,19 +16,32 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     min-height: 55vmin;
-    max-height: 65vmax; 
+    max-height: 65vmax;
     aspect-ratio: 1/1;
     box-sizing: border-box;
 
 }
 
 .cell {
-    background-color: rgba(172, 227, 229, 0.852);
-    border: 0.5vmin solid rgb(2, 139, 144);
+    background-color: rgba(172, 227, 229, 0.795);
+    border: 0.3vmin solid rgb(81, 95, 95);
     color: white;
     font-family: 'Indie Flower', Scursive;
     font-weight: bold;
     font-size: 10vmin;
+
+}
+
+.animation {
+    animation-name: mebaabea;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
+
+.animationOutput {
+    animation-name: mebaabea2;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
 }
 
 .bUp {
@@ -47,22 +60,31 @@
     border-left: 0;
 }
 
+
 .red {
     color: red;
     text-shadow: rgb(180, 0, 0) 2px 0 2px;
 
 }
 
-.button {
-    color: rgb(255, 255, 255);
-    font-size: large;
-    background-color: rgba(0, 247, 255, 0.852);
-    border: 0.5vmin solid rgb(2, 139, 144);
+.redBG {
+    background-color: rgb(180, 0, 0);
 }
 
 .blue {
     color: blue;
     text-shadow: rgb(0, 0, 180) 2px 0 2px;
+}
+
+.blueBG {
+    background-color: rgb(0, 0, 180);
+}
+
+.playAgain {
+    color: aliceblue;
+    animation-iteration-count: 1;
+    font-size: 25px;
+
 }
 
 #main {
@@ -75,7 +97,7 @@
 }
 
 #header {
-    font-size: 70px;
+    font-size: 55px;
     line-height: 70%;
     margin-bottom: 0;
 }
@@ -84,19 +106,21 @@
     font-size: 30px;
     border-radius: 40%;
     background-color: rgba(0, 0, 0, 0.583);
-    width: 50VW;
+    width: 50vw;
     max-width: 200px;
     margin: 5% auto;
-
-
+    line-height: 90%;
 }
 
 #score {
     color: aliceblue;
     background-color: black;
     min-width: 33vmin;
-    max-width: 35vmax; 
-    margin: auto;
+    max-width: 35vmax;
+    margin: 2% auto 4%; 
+    padding: 2px auto;
+    text-align: center;
+    border-radius: 20px;
 }
 
 body {
@@ -113,15 +137,59 @@ html {
     #header {
         font-size: 150px;
     }
-    
+
     #output {
         font-size: 60px;
         max-width: 400px;
+        animation-name: mebaabea3;
     }
 
     #score {
-        font-size: 60px;
+        font-size: 50px;
 
+    }
+
+}
+
+@keyframes mebaabea {
+    0% {
+        font-size: 10vmin;
+    }
+
+    50% {
+        font-size: 11.7vmin;
+    }
+    
+    100% {
+        font-size: 10vmin;
+    }
+}
+
+@keyframes mebaabea2 {
+    0% {
+        font-size: 30px;
+    }
+    
+    50% {
+        font-size: 50px;
+    }
+    
+    100% {
+        font-size: 30px;
+    }
+}
+
+@keyframes mebaabea3 {
+    0% {
+        font-size: 60px;
+    }
+
+    50% {
+        font-size:100px;
+    }
+
+    100% {
+        font-size: 60px;
     }
 }
 
