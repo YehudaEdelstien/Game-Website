@@ -3,6 +3,7 @@ const board = [null, "", "", "", "", "", "", "", "", ""]
 
 // לוח מצב
 let output;
+let playAgain;
 
 // חיובי: תור איקס | שלילי תור עיגול
 let turnX = true;
@@ -32,6 +33,11 @@ window.onload = () => {
     for (let i = 0; i < board.length - 1; i++) { //addEventListener
         document.getElementsByClassName("cell")[i].addEventListener("click", play)
         output = document.getElementById("output")
+
+        playAgain = document.getElementById('playAgain')
+        playAgain.classList.add('hide');
+        playAgain.addEventListener('click', resetAll)
+
         printScore();
     }
 
@@ -222,16 +228,15 @@ function set(cell, XorO) {
 
 // מדפיס סטרינג ללוח המצב
 function setOutput() {
-    output.addEventListener('click', resetAll)
-    let tryAgain = '<br> <span class="playAgain"> Play Again </span> '
-
     if (weHaveWinner) {
-        output.innerHTML = turnX ? "X Win!" + tryAgain : "O Win!" + tryAgain; // ניצח
+        output.innerHTML = turnX ? "X Win!"  : "O Win!" ; // ניצח
         output.classList.add(turnX ? "red" : "blue");
         output.classList.add('animationOutput');
-
+        playAgain.classList.remove('hide')
+        
     } else if (turnCounter == 8) {
-        output.innerHTML = "draw..." + tryAgain; // תיקו
+        output.innerHTML = "draw..."; // תיקו
+        playAgain.classList.remove('hide')
 
     } else if (turnX) {
         output.innerHTML = "X ---> <span class = 'blue'>O</span>"; // תור עיגול
@@ -321,6 +326,7 @@ function resetAll() {
         'blue', 'red', 'animationOutput'
     );
 
+    playAgain.classList.add('hide');
     turnCounter = 0;
     waitForCom = false;
     turnX = false;

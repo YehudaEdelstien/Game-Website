@@ -85,11 +85,24 @@
     background-color: rgb(0, 0, 180);
 }
 
-.playAgain {
+.hide{
+    display: none;
+}
+
+#playAgain {
     color: aliceblue;
+    background-color: black;
     animation-iteration-count: 1;
     font-size: 25px;
+    margin-top: 0;  margin-bottom: 2%;
+    margin-left: auto; margin-right: auto;
+    border-radius: 20px;
+    width: -webkit-fill-available;
+    border: 0.3vmin solid rgb(81, 95, 95);
 
+}
+#playAgain:hover{
+    background-color: grey;
 }
 
 #main {
@@ -157,6 +170,11 @@ html {
     }
     body {
         background-size: 40%;
+    }
+
+    #playAgain {
+        font-size: 50px;
+        width: 50%;
     }
 
 }
