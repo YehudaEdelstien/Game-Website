@@ -49,7 +49,7 @@ window.onload = () => {
         "#d3277a", "#2ca1ae", "#9685eb", "#8a96c6", "#dba2e6", "#76fc1b", "#608fa4",
         "#20f6ba", "#07d7f6", "#dce77a", "#77ecca"
     ];
-let colorPos = 0;
+    let colorPos = 0;
 
     //Game Variables
     let gameIsRunning = false;
@@ -129,6 +129,7 @@ let colorPos = 0;
         }
 
     }
+
     function brickRow(y) {
         const arr = [];
         for (i = 0; i < canvas.width / brickXGap; i++) {
@@ -182,6 +183,20 @@ let colorPos = 0;
         mousePos.x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
     }
 
+    //Sounds
+    const soundManager = {
+        bounce: new Audio("./sounds/Bounce.wav"),
+        paddle: new Audio("./sounds/Paddle.wav"),
+        gameStart: new Audio("./sounds/GameStart.wav"),
+        gameOver: new Audio("./sounds/GameOver.wav"),
+
+        play(sound){
+            this[sound].currentTime = 0;
+            this[sound].play();
+        }
+    }
+
+
     //Game functions
     function drawBall() {
         ctx.beginPath();
@@ -220,6 +235,7 @@ let colorPos = 0;
                     ball.angle = ((ball.xPos - ball.radius - paddle.xPos) / paddle.width) / 2 * Math.PI;
                     ball.xSpeed = Math.cos(ball.angle + 1) * -ball.speed;
                     ball.ySpeed = Math.sin(ball.angle + 1) * -ball.speed;
+                    soundManager.play("paddle");
                 }
             }
         }
@@ -238,6 +254,8 @@ let colorPos = 0;
                         }
                         ball.bounce("y");
                         score.increase();
+
+                        soundManager.play("bounce");
                     }
                 }
             }
@@ -318,6 +336,7 @@ let colorPos = 0;
         ball.reset();
         score.reset();
         animBricksEnter();
+        soundManager.play("gameStart");
         gameIsRunning = true;
     }
 
@@ -325,6 +344,7 @@ let colorPos = 0;
         startScreen.style.display = "flex";
         gameIsRunning = false;
         animBricksExit();
+        soundManager.play("gameOver");
     }
 
     function changeColor() { //🟢
