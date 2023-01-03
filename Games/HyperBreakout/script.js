@@ -187,6 +187,7 @@ window.onload = () => {
     const soundManager = {
         bounce: new Audio("./sounds/Bounce.wav"),
         paddle: new Audio("./sounds/Paddle.wav"),
+        wall: new Audio("./sounds/WallBounce.wav"),
         gameStart: new Audio("./sounds/GameStart.wav"),
         gameOver: new Audio("./sounds/GameOver.wav"),
 
@@ -264,6 +265,7 @@ window.onload = () => {
         function checkWallCol() {
             if (ball.xPos - ball.radius < 0 || ball.xPos + ball.radius > canvas.width) {
                 ball.bounce("x");
+                soundManager.play("wall");
                 if (ball.xPos - ball.radius < 0) {
                     ball.xPos = ball.radius;
                 } else {
@@ -273,6 +275,7 @@ window.onload = () => {
             if (ball.yPos - ball.radius < 0) {
                 ball.bounce("y");
                 ball.yPos = ball.radius;
+                soundManager.play("wall");
             }
 
             if (ball.yPos + ball.radius > canvas.height) {
