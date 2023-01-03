@@ -108,6 +108,7 @@ let colorPos = 0;
         }
     }
 
+    //Bricks
     function Brick(x, y) {
         this.xPos = x + 2;
         this.yPos = y;
@@ -137,8 +138,36 @@ let colorPos = 0;
     }
 
     let brickFallTimer = 0;
-    const brickFallSpeed = 0.2;
+    const brickFallSpeed = 0.15;
 
+    let currentBrickOffset = 0;
+
+    function animBricksEnter(x = 1, animationFrames = 125){
+        currentBrickOffset = -100 * easeIn(x);
+        if (x > 0){
+            requestAnimationFrame(() => animBricksEnter(x - (1 / animationFrames)));
+        } else {
+            currentBrickOffset = 0;
+        }
+    }
+
+    function easeIn(x){
+        return x * x * x * x * x;
+        // x === 0 ? 0 : Math.pow(2, 10 * x - 10);
+        
+    }
+
+    function animBricksExit(x = 0, animationFrames = 50){
+        currentBrickOffset = (canvas.height * -1) * easeOut(x);
+        if (x < 1 && !gameIsRunning){
+            requestAnimationFrame(() => animBricksExit(x + (1 / animationFrames)));
+        }
+    }
+
+    function easeOut(x) {
+        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+    }
+        
     // input
     const mousePos = {
         x: canvas.width / 2,
@@ -151,7 +180,6 @@ let colorPos = 0;
 
     document.ontouchmove = (e) => {
         mousePos.x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
-        console.log(e.touches[0].clientX - canvas.getBoundingClientRect().left);
     }
 
     //Game functions
@@ -235,7 +263,6 @@ let colorPos = 0;
         }
     }
 
-
     function updatePaddle() {
         if (mousePos.x < 0 + (paddle.width / 2)) {
             paddle.xPos = 0;
@@ -248,6 +275,9 @@ let colorPos = 0;
     }
 
     function updateBall() {
+        if (!gameIsRunning){
+            return;
+        }
         ball.xPos += ball.xSpeed;
         ball.yPos += ball.ySpeed;
 
@@ -257,7 +287,7 @@ let colorPos = 0;
 
     function updateBricks() {
         brickFallTimer += brickFallSpeed;
-        if (brickFallTimer >= 1) {
+        if (gameIsRunning && brickFallTimer >= 1) {
             bricks.forEach(r => {
                 r.forEach(b => b.yPos++);
             })
@@ -267,7 +297,7 @@ let colorPos = 0;
         bricks.forEach(r => {
             r.forEach(b => {
                 //changeColor(); //🟢 ...תפתח את זה תראה מה קורה
-                drawBrick(b.xPos, b.yPos, b.width, b.height);
+                drawBrick(b.xPos, b.yPos + currentBrickOffset, b.width, b.height);
             })
         });
     }
@@ -276,11 +306,9 @@ let colorPos = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         updatePaddle();
+        updateBall();
+        updateBricks();
 
-        if (gameIsRunning) {
-            updateBall();
-            updateBricks();
-        }
         requestAnimationFrame(mainLoop);
     }
 
@@ -289,12 +317,14 @@ let colorPos = 0;
         generateBoard();
         ball.reset();
         score.reset();
+        animBricksEnter();
         gameIsRunning = true;
     }
 
     function endGame() {
         startScreen.style.display = "flex";
         gameIsRunning = false;
+        animBricksExit();
     }
 
     function changeColor() { //🟢
