@@ -37,6 +37,44 @@
 
 }
 
+.menu {
+
+    position: fixed;
+    height: 62%;
+    width: 40vw;
+    background: dimgray;
+    background-size: 200%;
+    border: 3px black solid;
+}
+
+.menu>*{
+    margin: 2px;
+    border: 5px solid rgba(220, 20, 60, 0);
+    border-radius: 30%;
+}
+.menu>h4 {
+    color: aliceblue;
+    font-size: 5vW;
+    text-decoration: underline aliceblue;
+    margin: 5%;
+}
+
+.menu>img {
+    width: 20%;
+    opacity: 0.9;
+}
+
+.menu>img:hover{
+    opacity: 1;
+}
+
+.menu>button{
+    height: 30%;
+    width: 20%;
+    position: absolute;
+    top: 50%;
+}
+
 .animation {
     animation-name: mebaabea;
     animation-duration: 0.5s;
@@ -85,23 +123,30 @@
     background-color: rgb(0, 0, 180);
 }
 
-.hide{
+.hide {
     display: none;
 }
+.chosen {
+    border: 5px solid rgba(0, 247, 255, 0.795);
+    border-radius: 30%;
+}
 
-#playAgain {
+.playAgain {
     color: aliceblue;
     background-color: black;
     animation-iteration-count: 1;
     font-size: 25px;
-    margin-top: 0;  margin-bottom: 2%;
-    margin-left: auto; margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 20px;
     width: -webkit-fill-available;
     border: 0.3vmin solid rgb(81, 95, 95);
 
 }
-#playAgain:hover{
+
+.playAgain:hover {
     background-color: grey;
 }
 
@@ -168,6 +213,7 @@ html {
         font-size: 50px;
 
     }
+
     body {
         background-size: 40%;
     }

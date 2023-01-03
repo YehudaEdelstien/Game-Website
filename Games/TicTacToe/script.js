@@ -4,6 +4,7 @@ const board = [null, "", "", "", "", "", "", "", "", ""]
 // לוח מצב
 let output;
 let playAgain;
+let toMenu;
 
 // חיובי: תור איקס | שלילי תור עיגול
 let turnX = true;
@@ -27,20 +28,94 @@ let vsSmartCom = true;
 // מחכה לרובוט
 let waitForCom = false;
 
-
 // הרצה בטעינת העמוד
 window.onload = () => {
     for (let i = 0; i < board.length - 1; i++) { //addEventListener
         document.getElementsByClassName("cell")[i].addEventListener("click", play)
         output = document.getElementById("output")
 
-        playAgain = document.getElementById('playAgain')
-        playAgain.classList.add('hide');
-        playAgain.addEventListener('click', resetAll)
+        playAgain = document.getElementById('playAgain');
+        playAgain.addEventListener('click', resetAll);
+
+        toMenu = document.getElementById('toMenu');
+        toMenu.addEventListener('click', () => {
+            resetAll();
+            document.getElementById('menu').classList.remove('hide');
+        })
+
+        document.getElementById('go').addEventListener('click', () => { menuButtons('go') });
+        document.getElementById('playX').addEventListener('click', () => { menuButtons('playX') });
+        document.getElementById('playO').addEventListener('click', () => { menuButtons('playO') });
+        document.getElementById('player2').addEventListener('click', () => { menuButtons('player2') });
+        document.getElementById('bot').addEventListener('click', () => { menuButtons('bot') });
+        document.getElementById('dumb').addEventListener('click', () => { menuButtons('dumb') });
+        document.getElementById('smart').addEventListener('click', () => { menuButtons('smart') });
+        document.getElementById('smart').addEventListener('click', () => { menuButtons('smart') });
 
         printScore();
     }
 
+}
+
+function menuButtons(id = '') {
+    let playX = document.getElementById('playX');
+    let playO = document.getElementById('playO');
+    let player2 = document.getElementById('player2');
+    let bot = document.getElementById('bot');
+    let dumb = document.getElementById('dumb');
+    let smart = document.getElementById('smart');
+    let go = document.getElementById('go');
+    let text = document.getElementById('menuOutput');
+
+    switch (id) {
+        case 'playX':
+            turnX = true;
+            playX.classList.add('chosen')
+            playO.classList.remove('chosen')
+            break
+        case 'playO':
+            turnX = false;
+            playO.classList.add('chosen')
+            playX.classList.remove('chosen')
+            break
+        case 'player2':
+            vsCom = false;
+            player2.classList.add('chosen');
+            bot.classList.remove('chosen');
+            dumb.classList.remove('chosen');
+            dumb.classList.add('hide');
+            smart.classList.remove('chosen');
+            smart.classList.add('hide');
+            go.classList.remove('hide');
+            break;
+        case 'bot':
+            vsCom = true;
+            bot.classList.add('chosen');
+            player2.classList.remove('chosen');
+            dumb.classList.remove('hide');
+            smart.classList.remove('hide');
+            go.classList.add('hide');
+
+            break;
+        case 'dumb':
+            vsSmartCom = false;
+            dumb.classList.add('chosen');
+            smart.classList.remove('chosen');
+            go.classList.remove('hide');
+            break;
+        case 'smart':
+            vsSmartCom = true;
+            smart.classList.add('chosen');
+            dumb.classList.remove('chosen');
+            go.classList.remove('hide');
+            break;
+        case 'go':
+            document.getElementById('menu').classList.add('hide');
+            break
+
+        default:
+            break;
+    }
 }
 
 
@@ -53,12 +128,15 @@ function play() {
 
     if (makeMove) {
         endTurn()
-        
+
         if (vsCom && !gameFinished()) {
             waitForCom = true;
 
             setTimeout(() => { //🤖 compueter plays
-                vsSmartCom ? comSmartPlay() : comDumpPlay();
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
+                vsSmartCom ? comSmartPlay() : comdumbPlay();
                 waitForCom = false;
             }, 600);
         }
@@ -87,7 +165,7 @@ function randomCOM() {
 }
 
 // רובוט רמה א
-function comDumpPlay() {
+function comdumbPlay() {
     randomCOM();
     endTurn();
 }
@@ -229,14 +307,16 @@ function set(cell, XorO) {
 // מדפיס סטרינג ללוח המצב
 function setOutput() {
     if (weHaveWinner) {
-        output.innerHTML = turnX ? "X Win!"  : "O Win!" ; // ניצח
+        output.innerHTML = turnX ? "X Win!" : "O Win!"; // ניצח
         output.classList.add(turnX ? "red" : "blue");
         output.classList.add('animationOutput');
         playAgain.classList.remove('hide')
-        
+        toMenu.classList.remove('hide')
+
     } else if (turnCounter == 8) {
         output.innerHTML = "draw..."; // תיקו
         playAgain.classList.remove('hide')
+        toMenu.classList.remove('hide')
 
     } else if (turnX) {
         output.innerHTML = "X ---> <span class = 'blue'>O</span>"; // תור עיגול
@@ -271,7 +351,7 @@ function winCheck() {
         return true;
     }
 
-return false;
+    return false;
 }
 
 function scoreUp() {
@@ -318,7 +398,7 @@ function resetAll() {
         let cell = document.getElementById(`cell${i}`);
         cell.innerText = '';
         cell.classList.remove(
-            'red','redBG','blue','blueBG','animation' 
+            'red', 'redBG', 'blue', 'blueBG', 'animation'
         );
 
     }
@@ -327,6 +407,7 @@ function resetAll() {
     );
 
     playAgain.classList.add('hide');
+    toMenu.classList.add('hide');
     turnCounter = 0;
     waitForCom = false;
     turnX = false;

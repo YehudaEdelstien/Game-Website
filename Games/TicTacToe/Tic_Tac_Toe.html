@@ -33,7 +33,10 @@
                 VS
                 <span class="blue">O</span>
             </h2>
-            <h2 id="playAgain">play again</h2>
+            <div style="display: flex;">
+                <h2 id="playAgain" class="playAgain hide">play again</h2>
+                <h2 id="toMenu" class="playAgain hide">menu</h2>
+            </div>
         </div>
 
         <section class="board">
@@ -48,6 +51,16 @@
             <button id="cell9" class="cell bDown bRight"></button>
         </section>
 
+        <menu id="menu" class="menu">
+            <h4 id="menuOutput">choose:</h4>
+            <img id="playX" class="witch chosen" src="https://cdn-icons-png.flaticon.com/512/594/594598.png"  alt="bot">
+            <img id="player2" class="who" src="https://cdn-icons-png.flaticon.com/512/921/921000.png"  alt="bot">
+            <img id="dumb" class="level hide" src="https://cdn-icons-png.flaticon.com/512/520/520435.png" alt="easy"> <br>
+            <img id="playO" class="witch" src="https://cdn-icons-png.flaticon.com/512/594/594580.png" alt="player2"> 
+            <img id="bot" class="who" src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="player2"> 
+            <img id="smart" class="level hide" src="https://cdn-icons-png.flaticon.com/512/520/520452.png" alt="hard">
+            <button id="go" class="hide" type="submit">let's go!</button> 
+        </menu>
         <div id="data">
             <p id="score">score x = 0 | o = 0</p>
 
