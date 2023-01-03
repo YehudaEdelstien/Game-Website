@@ -145,17 +145,13 @@ window.onload = () => {
 
     function animBricksEnter(x = 1, animationFrames = 125){
         currentBrickOffset = -100 * easeIn(x);
-        if (x > 0){
+        if (x > 0 && gameIsRunning){
             requestAnimationFrame(() => animBricksEnter(x - (1 / animationFrames)));
-        } else {
-            currentBrickOffset = 0;
         }
     }
 
     function easeIn(x){
         return x * x * x * x * x;
-        // x === 0 ? 0 : Math.pow(2, 10 * x - 10);
-        
     }
 
     function animBricksExit(x = 0, animationFrames = 50){
@@ -334,18 +330,18 @@ window.onload = () => {
     }
 
     function startGame() {
+        gameIsRunning = true;
         startScreen.style.display = "none";
         generateBoard();
         ball.reset();
         score.reset();
         animBricksEnter();
         soundManager.play("gameStart");
-        gameIsRunning = true;
     }
 
     function endGame() {
-        startScreen.style.display = "flex";
         gameIsRunning = false;
+        startScreen.style.display = "flex";
         animBricksExit();
         soundManager.play("gameOver");
     }
