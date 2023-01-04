@@ -5,7 +5,7 @@ const board = [null, "", "", "", "", "", "", "", "", ""]
 let output;
 let playAgain;
 let toMenu;
-let x, y, z;
+let textMenu1, textMenu2;
 
 
 // חיובי: תור איקס | שלילי תור עיגול
@@ -74,13 +74,13 @@ function menuButtons(id = '') {
             turnX = true;
             playX.classList.add('chosen')
             playO.classList.remove('chosen')
-            x = 'you X';
+            textMenu1 = 'you X';
             break
         case 'playO':
             turnX = false;
             playO.classList.add('chosen')
             playX.classList.remove('chosen')
-            x = 'you O';
+            textMenu1 = 'you O';
             break
         case 'player2':
             vsCom = false;
@@ -91,7 +91,8 @@ function menuButtons(id = '') {
             smart.classList.remove('chosen');
             smart.classList.add('hide');
             go.classList.remove('hide');
-            y = 'vs player 2';
+            textMenu2 = 'vs player 2';
+            z = '';
             break;
         case 'bot':
             vsCom = true;
@@ -100,31 +101,30 @@ function menuButtons(id = '') {
             dumb.classList.remove('hide');
             smart.classList.remove('hide');
             go.classList.add('hide');
-            y = 'vs bot';
+            textMenu2 = 'vs bot';
             break;
         case 'dumb':
             vsSmartCom = false;
             dumb.classList.add('chosen');
             smart.classList.remove('chosen');
             go.classList.remove('hide');
-            z = 'level easy';
+            textMenu2 = 'vs easy bot';
             break;
         case 'smart':
             vsSmartCom = true;
             smart.classList.add('chosen');
             dumb.classList.remove('chosen');
             go.classList.remove('hide');
-            z = 'level hard';
+            textMenu2 = 'vs hard bot';
             break;
         case 'go':
             document.getElementById('menu').classList.add('hide');
             break
     }
-    if (x == undefined) {x = 'you X';}   
-    if (y == undefined) {y = '';}    
-    if (z == undefined) {z = '';}    
-    text.innerText = x +' '+ y +' '+ z
-    console.log(x,y,z);
+    if (textMenu1 == undefined) {textMenu1 = 'you X';}   
+    if (textMenu2 == undefined) {textMenu2 = '';}   
+    text.innerText = textMenu1 +' '+ textMenu2;
+    console.log(textMenu1,textMenu2,z);
 }
 
 
