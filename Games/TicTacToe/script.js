@@ -10,7 +10,7 @@ let textMenu1, textMenu2;
 
 // חיובי: תור איקס | שלילי תור עיגול
 let turnX = true;
-
+let youX = true;
 // סופר תורות
 let turnCounter = 0;
 let weHaveWinner = false;
@@ -24,9 +24,9 @@ let highScore = scoreDB.vsCom || 0;
 let highScoreS = scoreDB.vsSmartCom || 0;
 
 // מפעיל רובוט
-let vsCom = true;
+let vsBot = true;
 // מפעיל רובוט רמה ב
-let vsSmartCom = true;
+let smartBot = true;
 // מחכה לרובוט
 let waitForCom = false;
 
@@ -72,18 +72,24 @@ function menuButtons(id = '') {
     switch (id) {
         case 'playX':
             turnX = true;
+            youX = true;
             playX.classList.add('chosen')
             playO.classList.remove('chosen')
+            bot.classList.remove('hide')
+            player2.classList.remove('hide')
             textMenu1 = 'you X';
             break
         case 'playO':
             turnX = false;
+            youX = false;
             playO.classList.add('chosen')
             playX.classList.remove('chosen')
+            bot.classList.remove('hide')
+            player2.classList.remove('hide')
             textMenu1 = 'you O';
             break
         case 'player2':
-            vsCom = false;
+            vsBot = false;
             player2.classList.add('chosen');
             bot.classList.remove('chosen');
             dumb.classList.remove('chosen');
@@ -92,10 +98,9 @@ function menuButtons(id = '') {
             smart.classList.add('hide');
             go.classList.remove('hide');
             textMenu2 = 'vs player 2';
-            z = '';
             break;
         case 'bot':
-            vsCom = true;
+            vsBot = true;
             bot.classList.add('chosen');
             player2.classList.remove('chosen');
             dumb.classList.remove('hide');
@@ -104,27 +109,27 @@ function menuButtons(id = '') {
             textMenu2 = 'vs bot';
             break;
         case 'dumb':
-            vsSmartCom = false;
+            smartBot = false;
             dumb.classList.add('chosen');
             smart.classList.remove('chosen');
             go.classList.remove('hide');
-            textMenu2 = 'vs easy bot';
+            textMenu2 = 'vs dumb bot';
             break;
         case 'smart':
-            vsSmartCom = true;
+            smartBot = true;
             smart.classList.add('chosen');
             dumb.classList.remove('chosen');
             go.classList.remove('hide');
-            textMenu2 = 'vs hard bot';
+            textMenu2 = 'vs smart bot';
             break;
         case 'go':
             document.getElementById('menu').classList.add('hide');
             break
     }
-    if (textMenu1 == undefined) {textMenu1 = 'you X';}   
-    if (textMenu2 == undefined) {textMenu2 = '';}   
-    text.innerText = textMenu1 +' '+ textMenu2;
-    console.log(textMenu1,textMenu2,z);
+    if (textMenu1 == undefined) { textMenu1 = 'you X'; }
+    if (textMenu2 == undefined) { textMenu2 = ''; }
+    text.innerText = textMenu1 + ' ' + textMenu2;
+    console.log(textMenu1, textMenu2, z);
 }
 
 
@@ -138,14 +143,14 @@ function play() {
     if (makeMove) {
         endTurn()
 
-        if (vsCom && !gameFinished()) {
+        if (vsBot && !gameFinished()) {
             waitForCom = true;
 
             setTimeout(() => { //🤖 compueter plays
-                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
-                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
-                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsCom)
-                vsSmartCom ? comSmartPlay() : comdumbPlay();
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
+                console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
+                smartBot ? comSmartPlay() : comdumbPlay();
                 waitForCom = false;
             }, 600);
         }
@@ -366,11 +371,11 @@ function winCheck() {
 function scoreUp() {
     if (
         !waitForCom &&
-        vsCom &&
+        vsBot &&
         weHaveWinner
     ) {
-        if (vsCom) {
-            if (!vsSmartCom) {
+        if (vsBot) {
+            if (!smartBot) {
                 score++
                 highScore++
             } else {
@@ -393,10 +398,10 @@ function scoreUp() {
 
 function printScore() {
     document.getElementById("score").innerText =
-        `score ⬇️👇 ${getCurrentUser()}
-                this time / all time 
-        vs COM ${score} / ${highScore}
-        vs smart COM ${scoreS} / ${highScoreS}`;
+`        score  ${getCurrentUser()}
+       this time | all time 
+  vs dumb Bot  ${score} | ${highScore}  
+  vs smart Bot ${scoreS} | ${highScoreS}  `;
 }
 
 
@@ -419,10 +424,10 @@ function resetAll() {
     toMenu.classList.add('hide');
     turnCounter = 0;
     waitForCom = false;
-    turnX = false;
+    turnX = !youX;
     weHaveWinner = false;
     setOutput();
-    turnX = true;
+    turnX = youX;
 }
 
 function drawCelllsBG(cell1, cell2, cell3) {

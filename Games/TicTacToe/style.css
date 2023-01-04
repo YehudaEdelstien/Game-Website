@@ -39,11 +39,11 @@
 
 .menu {
     position: fixed;
-    height: 64%;
+    height: 61%;
     width: 40vw;
     background: dimgray;
     background-size: 200%;
-    border: 10px rgb(55, 55, 55) double;
+    border: 10px #373737 double;
 }
 
 .menu>* {
@@ -59,10 +59,10 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 5%;
     text-shadow:
-        -2px 0px 0px rgb(0, 0, 0),
-        2px 0px 0px rgb(0, 0, 0),
-        0px -2px 0px rgb(0, 0, 0),
-        0px 2px 0px rgb(0, 0, 0);
+        -2px 0px 0px #373737,
+        2px 0px 0px #373737,
+        0px -2px 0px #373737,
+        0px 2px 0px #373737;
 }
 
 .menuButton {
@@ -189,11 +189,7 @@
 #score {
     color: aliceblue;
     background-color: black;
-    min-width: 33vmin;
-    max-width: 35vmax;
     margin: 2% auto 4%;
-    padding: 2px auto;
-    text-align: center;
     border-radius: 20px;
 }
 
@@ -225,7 +221,7 @@ html {
     }
 
     #score {
-        font-size: 50px;
+        font-size: 40px;
 
     }
 
