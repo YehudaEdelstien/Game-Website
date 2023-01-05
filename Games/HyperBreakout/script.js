@@ -109,12 +109,12 @@ window.onload = () => {
     }
 
     //Bricks
-    function Brick(x, y) {
-        this.xPos = x + 2;
-        this.yPos = y;
-        this.width = 47;
-        this.height = 27;
-    }
+	    function Brick(x, y) {	
+        this.xPos = x + 2;	
+        this.yPos = y;	
+    }	
+    Brick.prototype.width = 47;	
+    Brick.prototype.height = 27;
 
     const brickYGap = 30;
     const brickXGap = 50;
