@@ -8,8 +8,14 @@ body {
     margin: 0;
     text-align: center;
     font-family: Arial;
+    color: white;
+    background-color: var(--color3);
+}
+
+.forms {
     background-color: var(--color1);
     color: var(--color3);
+    padding: 10px 0;
 }
 
 input, button{
@@ -63,10 +69,13 @@ button:hover {
 
 @media (min-width: 576px) {
     .forms {
+        margin: 0 auto;
+        border: 4px var(--color2) solid;
         display: flex;
         height: 70vh;
         justify-content: center;
         align-items: center;
+        width: 60vw;
     }
 
     .formContainer {

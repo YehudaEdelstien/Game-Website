@@ -6,7 +6,7 @@ window.onload = () => {
     const scoreDisplay = document.getElementById("score");
     const highScoreDisplay = document.getElementById("highScore");
 
-    startScreen.addEventListener("click", startGame)
+    startScreen.addEventListener("click", startGame);
 
     const colorsArr = [
         "#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
@@ -112,9 +112,9 @@ window.onload = () => {
     function Brick(x, y) {
         this.xPos = x + 2;
         this.yPos = y;
-        this.width = 47;
-        this.height = 27;
     }
+    Brick.prototype.width = canvas.width;
+    Brick.prototype.height = 27;
 
     const brickYGap = 30;
     const brickXGap = 50;
@@ -127,7 +127,6 @@ window.onload = () => {
         for (let i = startRows - (canvas.height / brickYGap); i < startRows; i++) {
             bricks.push(brickRow(i * brickYGap));
         }
-
     }
 
     function brickRow(y) {
@@ -233,6 +232,7 @@ window.onload = () => {
                     ball.xSpeed = Math.cos(ball.angle + 1) * -ball.speed;
                     ball.ySpeed = Math.sin(ball.angle + 1) * -ball.speed;
                     soundManager.play("paddle");
+                    ball.yPos = paddle.yPos - ball.radius;
                 }
             }
         }
@@ -240,19 +240,37 @@ window.onload = () => {
         function checkBrickCol() {
             for (let row of bricks) {
                 for (let i in row) {
-                    if (ball.xPos + ball.radius > row[i].xPos &&
-                        ball.xPos - ball.radius < row[i].xPos + row[i].width &&
-                        ball.yPos + ball.radius > row[i].yPos &&
-                        ball.yPos - ball.radius < row[i].yPos + row[i].height) {
+                    let colVector = [
+                        (ball.xPos - (row[i].xPos + (row[i].width / 2))) / (row[i].width + ball.radius) * 2,
+                        (ball.yPos - (row[i].yPos + (row[i].height / 2))) / (row[i].height + ball.radius) * 2,
+                    ]
+
+                    if (Math.abs(colVector[0]) < 1 && Math.abs(colVector[1]) < 1) {
+                        if (Math.abs(colVector[0]) > Math.abs(colVector[1])) {
+                            ball.bounce("x");
+                            if (colVector[0] >= 0) {
+                                ball.xPos = row[i].xPos + row[i].width + ball.radius;
+                            } else {
+                                ball.xPos = row[i].xPos - ball.radius;
+                            }
+                        } else {
+                            ball.bounce("y");
+                            if (colVector[1] >= 0) {
+                                ball.yPos = row[i].yPos + row[i].height + ball.radius;
+                            } else {
+                                ball.yPos = row[i].yPos - ball.radius;
+                            }
+                        }
+
                         row.splice(i, 1);
                         if (row.length === 0) {
                             bricks.splice(bricks.indexOf(row), 1);
-                            bricks.unshift(brickRow(bricks[0][0].yPos - brickYGap));
+                            bricks.unshift(brickRow(bricks[0][0].yPos));
                         }
-                        ball.bounce("y");
                         score.increase();
 
                         soundManager.play("bounce");
+                        return;
                     }
                 }
             }
@@ -303,33 +321,33 @@ window.onload = () => {
     }
 
     function updateBricks() {
-        if (gameIsRunning) {	
-            if (bricks[bricks.length - 1][0].yPos + Brick.prototype.height > canvas.height) {	
-                endGame();	
-            }	
-            brickFallTimer += brickFallSpeed;	
-            while (brickFallTimer > 1) {	
-                bricks.forEach(r => {	
-                    r.forEach(b => b.yPos++);	
-                })	
-                brickFallTimer--;	
+        if (gameIsRunning) {
+            if (bricks[bricks.length - 1][0].yPos + Brick.prototype.height > canvas.height) {
+                endGame();
             }
-        }
 
-        bricks.forEach(r => {
-            r.forEach(b => {
-                //changeColor(); //🟢 ...תפתח את זה תראה מה קורה
-                drawBrick(b.xPos, b.yPos + currentBrickOffset, b.width, b.height);
-            })
-        });
+            brickFallTimer += brickFallSpeed;
+            while (brickFallTimer > 1) {
+                bricks.forEach(r => {
+                    r.forEach(b => b.yPos++);
+                })
+                brickFallTimer--;
+            }
+
+            bricks.forEach(r => {
+                r.forEach(b => {
+                    //changeColor(); //🟢 ...תפתח את זה תראה מה קורה
+                    drawBrick(b.xPos, b.yPos + currentBrickOffset, b.width, b.height);
+                })
+            });
+        }
     }
 
     function mainLoop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        updateBricks();
         updatePaddle();
         updateBall();
-        updateBricks();
 
         requestAnimationFrame(mainLoop);
     }

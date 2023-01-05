@@ -6,7 +6,8 @@
 }
 
 body {
-    background-color: #f1c95a;
+    background: url(./Brick_Texture.jpg);
+    background-size: contain;
 }
 
 .hidemouse {
