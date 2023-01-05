@@ -45,21 +45,21 @@ window.onload = () => {
             document.getElementById('menu').classList.remove('hide');
         })
 
-        document.getElementById('go').addEventListener('click', () => { menuButtons('go') });
-        document.getElementById('playX').addEventListener('click', () => { menuButtons('playX') });
-        document.getElementById('playO').addEventListener('click', () => { menuButtons('playO') });
-        document.getElementById('player2').addEventListener('click', () => { menuButtons('player2') });
-        document.getElementById('bot').addEventListener('click', () => { menuButtons('bot') });
-        document.getElementById('dumb').addEventListener('click', () => { menuButtons('dumb') });
-        document.getElementById('smart').addEventListener('click', () => { menuButtons('smart') });
-        document.getElementById('smart').addEventListener('click', () => { menuButtons('smart') });
+        document.getElementById('go').addEventListener('click', menuButtons);
+        document.getElementById('playX').addEventListener('click', menuButtons);
+        document.getElementById('playO').addEventListener('click', menuButtons);
+        document.getElementById('player2').addEventListener('click', menuButtons);
+        document.getElementById('bot').addEventListener('click', menuButtons);
+        document.getElementById('dumb').addEventListener('click', menuButtons);
+        document.getElementById('smart').addEventListener('click', menuButtons);
+        document.getElementById('smart').addEventListener('click', menuButtons);
 
         printScore();
     }
 
 }
 
-function menuButtons(id = '') {
+function menuButtons() {
     let playX = document.getElementById('playX');
     let playO = document.getElementById('playO');
     let player2 = document.getElementById('player2');
@@ -69,7 +69,7 @@ function menuButtons(id = '') {
     let go = document.getElementById('go');
     let text = document.getElementById('menuOutput');
 
-    switch (id) {
+    switch (this.id) {
         case 'playX':
             turnX = true;
             youX = true;

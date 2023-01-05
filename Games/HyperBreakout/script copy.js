@@ -7,7 +7,7 @@ window.onload = () => {
     const highScoreDisplay = document.getElementById("highScore");
 
     startScreen.addEventListener("click", startGame);
-
+    //🟢
     const colorsArr = [
         "#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
         "#f205e6", "#1c0365", "#14a9ad", "#4ca2f9", "#a4e43f", "#d298e2", "#6119d0",
@@ -50,6 +50,7 @@ window.onload = () => {
         "#20f6ba", "#07d7f6", "#dce77a", "#77ecca"
     ];
     let colorPos = 0;
+    //🟢
 
     //Game Variables
     let gameIsRunning = false;
@@ -109,9 +110,10 @@ window.onload = () => {
     }
 
     //Bricks
-    function Brick(x, y) {
+    function Brick(x, y, c) { //🟢
         this.xPos = x + 2;
         this.yPos = y;
+        this.color = c;//🟢
     }
     Brick.prototype.width = canvas.width;
     Brick.prototype.height = 27;
@@ -132,7 +134,8 @@ window.onload = () => {
     function brickRow(y) {
         const arr = [];
         for (i = 0; i < canvas.width / brickXGap; i++) {
-            arr.push(new Brick(i * brickXGap, y))
+            changeColor();                                            //🟢
+            arr.push(new Brick(i * brickXGap, y, colorsArr[colorPos]))//🟢
         }
         return arr;
     }
@@ -202,12 +205,12 @@ window.onload = () => {
         ctx.closePath();
     }
 
-    function drawBrick(x, y, w, h) {
+    function drawBrick(x, y, w, h, color) {
         ctx.beginPath();
         ctx.rect(x, y, w, h);
         ctx.strokeStyle = "blue";
         ctx.stroke();
-        ctx.fillStyle = colorsArr[colorPos];
+        ctx.fillStyle = color;
         ctx.fill();
         ctx.closePath();
     }
@@ -336,8 +339,7 @@ window.onload = () => {
 
             bricks.forEach(r => {
                 r.forEach(b => {
-                    //changeColor(); //🟢 ...תפתח את זה תראה מה קורה
-                    drawBrick(b.xPos, b.yPos + currentBrickOffset, b.width, b.height);
+                    drawBrick(b.xPos, b.yPos + currentBrickOffset, b.width, b.height, b.color);
                 })
             });
         }
@@ -369,14 +371,14 @@ window.onload = () => {
         soundManager.play("gameOver");
     }
 
-    function changeColor() { //🟢
+    //🟢
+    function changeColor() { 
         if (colorPos + 1 == colorsArr.length) {
             colorPos = 0;
-
         } else {
             colorPos++
         }
     }
-
+    //🟢
     mainLoop();
 }
