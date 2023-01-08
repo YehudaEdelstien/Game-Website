@@ -60,18 +60,22 @@ window.onload = () => {
 
         increase() {
             this.currentScore++;
+            this.updateScore();
+        },
+
+        reset() {
+            this.currentScore = 0;
+            this.updateScore();
+        },
+
+        updateScore() {
             let str = "" + this.currentScore;
             str = str.padStart(3, '0');
             scoreDisplay.innerHTML = str;
             if (this.currentScore >= this.highScore) {
                 this.highScore = this.currentScore;
-                highScoreDisplay.innerHTML = str;
             }
-        },
-
-        reset() {
-            this.currentScore = 0;
-            scoreDisplay.innerHTML = "000";
+            highScoreDisplay.innerHTML = String(this.highScore).padStart(3, '0');
         }
     }
     //game elements
@@ -350,6 +354,7 @@ window.onload = () => {
         startScreen.style.display = "flex";
         animBricksExit();
         soundManager.play("gameOver");
+        saveHighscore();
     }
 
     //🟢
@@ -363,4 +368,19 @@ window.onload = () => {
     //🟢
 
     mainLoop();
+
+    //Meta functions
+    function saveHighscore() {
+        const userObj = doesUserExist(getCurrentUser());
+        userObj.HyperBreakout = {
+            highScore: score.highScore
+        };
+        updateUserData(userObj);
+    }
+
+    (function () {
+        score.highScore = Number(doesUserExist(getCurrentUser()).HyperBreakout.highScore) || 0;
+        score.updateScore();
+    })();
+
 }

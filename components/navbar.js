@@ -1,4 +1,8 @@
-const username =  doesUserExist(getCurrentUser()).name.split(" ")[0];
+let username = "Guest";
+if (doesUserExist(getCurrentUser())){
+    username = doesUserExist(getCurrentUser()).name.split(" ")[0];
+}
+
 
 class Navbar extends HTMLElement {
     constructor() {
