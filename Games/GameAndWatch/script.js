@@ -9,15 +9,20 @@ setInterval(gameplay, 1000 / 60);
 
 function gameplay() {
     drawCanvas();
-    helpMe.movement();
-    helpMe.coliderWithPlayer();
+    addCitizen()
+    helpMe.forEach(element => {
+        element.movement()
+        element.coliderWithPlayer()
+    });
 
 }
 
 function drawCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.draw('red');
-    helpMe.draw();
+    helpMe.forEach(element => {
+        element.draw()
+    });
 
 }
 
@@ -110,8 +115,10 @@ class Citizen {
     };
     coliderWithPlayer() {
         if (
-            this.y > player.y/////////////////////////////////////////////////// &&
-            
+            this.y + this.h > player.y &&
+            this.y < player.y + player.h &&
+            this.x < player.x + player.w &&
+            this.x + this.w > player.x
         ) {
             this.bouncing = true;
         }
@@ -120,6 +127,14 @@ class Citizen {
         }
     }
 }
-
-console.log(new Citizen(7, 7));
-const helpMe = new Citizen(8, 9)
+let counter = 240
+const helpMe = []
+function addCitizen() {
+    if (counter == 0) {
+        const npc = new Citizen(7,7);
+        helpMe.push(npc)
+        counter = 240
+    }
+    counter -=1
+}
+new Citizen(8, 9)

@@ -34,6 +34,7 @@ setTimeout(() => {
             this.y = y;
             this.w = w;
             this.h = h;
+            
             this.step = step;
         }
         drawPlayer(color) {
