@@ -23,6 +23,8 @@ section {
 #canvas {
     background-color: blanchedalmond;
     border: 20px blueviolet solid;
+    width: 400px;
+    height: 300px;
 }
 a{
     margin-right: 30%;

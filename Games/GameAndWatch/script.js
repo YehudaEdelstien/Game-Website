@@ -2,6 +2,20 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+let backgroundImg;
+let playerImg;
+let kid2Img;
+let kid1Img;
+let ambulance;
+
+
+window.onload = () => {
+    backgroundImg = document.getElementById('backgroundImg');
+    playerImg = document.getElementById('playerImg');
+    kid1Img = document.getElementById('kid1Img');
+    kid2Img = document.getElementById('kid2Img');
+    ambulance = document.getElementById('ambulance');
+}
 //===========//
 //  Gameplay 
 //===========//
@@ -17,31 +31,34 @@ function gameplay() {
 
 }
 
+
 function drawCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
+    ctx.drawImage(ambulance, 600, 400, 100, 100)
+    helpMe.forEach(element => { element.draw() });
     player.draw('red');
-    helpMe.forEach(element => {
-        element.draw()
-    });
 
 }
 
 //=========//
 //  Player
 //=========//
+
 const player = {
     x: (canvas.width / 2),
     y: (canvas.height / 4) * 3,
-    w: 100,
-    h: 20,
+    w: 220,
+    h: 140,
 
-    step: 40,
+    step: 140,
     color: 'blue',
     canMove: true,
 
     draw(color = '') {
-        ctx.fillStyle = color || this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        // ctx.fillStyle = color || this.color;
+        // ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.drawImage(playerImg, this.x, this.y, this.w, this.h)
     },
     moveRight() {
         this.x += this.step;
@@ -86,21 +103,24 @@ document.addEventListener('keydown', (e) => {
 //===========//
 //  Citizens 
 //===========//
+
 class Citizen {
     constructor(x, y) {
         this.x = x,
             this.y = y
     }
-    w = 30;
-    h = 30;
+    w = 80;
+    h = 70;
     color = 'green';
 
-    fallSpeed = 4;
-    bouncing = false
+    fallSpeed = 8;
+    bouncing = false;
+    img = imgNum?  kid1Img : kid2Img;
 
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        // ctx.fillStyle = this.color;
+        // ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
     };
     movement() {
 
@@ -115,7 +135,7 @@ class Citizen {
     };
     coliderWithPlayer() {
         if (
-            this.y + this.h > player.y &&
+            this.y + this.h > player.y + (player.h / 2) &&
             this.y < player.y + player.h &&
             this.x < player.x + player.w &&
             this.x + this.w > player.x
@@ -127,14 +147,17 @@ class Citizen {
         }
     }
 }
+
+let imgNum = true;
 let counter = 240
 const helpMe = []
 function addCitizen() {
     if (counter == 0) {
-        const npc = new Citizen(7,7);
+        const npc = new Citizen(7, 7);
         helpMe.push(npc)
+        imgNum  = !imgNum;
         counter = 240
     }
-    counter -=1
+    counter -= 1
 }
 new Citizen(8, 9)
