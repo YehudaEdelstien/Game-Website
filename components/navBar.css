@@ -7,8 +7,6 @@
 
 body {
     margin: 0;
-    background-color: var(--color1);
-    color: var(--color3);
 }
 
 .header {

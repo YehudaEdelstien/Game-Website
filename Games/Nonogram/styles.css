@@ -1,0 +1,30 @@
+main {
+    position: absolute;
+    top: 0;
+    background-color: lightgreen;
+    height: 100vh;
+    width: 100vw;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    background-color: white;
+    border: 1px black solid;
+}
+
+.selectedCell {
+    background-color: black;
+}
+
+#gameWindow {
+    width: 500px;
+    height: 500px;
+    background-color: grey;
+    margin: 200px auto;
+    user-select: none;
+}
