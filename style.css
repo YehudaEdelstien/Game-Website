@@ -12,12 +12,6 @@ body {
     background-color: var(--color3);
 }
 
-.forms {
-    background-color: var(--color1);
-    color: var(--color3);
-    padding: 10px 0;
-}
-
 input, button{
     display: block;
     height: 40px;
@@ -52,6 +46,13 @@ button:hover {
     background-color: var(--color2);
 }
 
+.forms {
+    background-color: var(--color1);
+    color: var(--color3);
+    padding: 10px 0;
+    min-width: initial;
+}
+
 .formContainer {
     width: 100vw;
     max-width: 300px;
@@ -69,13 +70,14 @@ button:hover {
 
 @media (min-width: 576px) {
     .forms {
+        min-width: 570px;
         margin: 0 auto;
         border: 4px var(--color2) solid;
         display: flex;
         height: 70vh;
         justify-content: center;
         align-items: center;
-        width: 60vw;
+        width: 70vw;
     }
 
     .formContainer {
