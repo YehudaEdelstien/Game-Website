@@ -14,7 +14,7 @@ table {
 
 td {
     background-color: white;
-    border: 1px black solid;
+    border: 0.5px black solid;
 }
 
 .selectedCell {
@@ -22,8 +22,8 @@ td {
 }
 
 #gameWindow {
-    width: 500px;
-    height: 500px;
+    width: 250px;
+    height: 250px;
     background-color: grey;
     margin: 200px auto;
     user-select: none;

@@ -1,19 +1,22 @@
 window.onload = () => {
     board = document.getElementById("board");
+    let boardState = [];
     
     let isClicking = false;
     board.addEventListener("mouseover", selectedCell);
     board.addEventListener("mousedown", clickedCell);
     document.addEventListener("mouseup", mouseUp)
 
-    boardRows = 5;
-    boardCols = 5;
+    boardRows = 10;
+    boardCols = 10;
 
     function makeBoard() {
         for (let i = 0; i < boardRows; i++){
             let row = board.insertRow();
+            boardState.push([]);
             for (let j = 0; j < boardCols; j++){
                 let cell = row.insertCell();
+                boardState[i].push(false);
             }
         }
     }
@@ -23,8 +26,10 @@ window.onload = () => {
         if (isClicking === false || e.target.cellIndex === undefined) return;
 
         const cell = e.target;
+        const row = cell.closest("tr");
         cell.classList.toggle("selectedCell");
-        console.log(cell.cellIndex)
+        boardState[row.rowIndex][cell.cellIndex] = !boardState[row.rowIndex][cell.cellIndex];
+        console.log(boardState)
     }
 
     function clickedCell(e) {
