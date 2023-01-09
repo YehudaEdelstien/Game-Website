@@ -1,7 +1,7 @@
 
 .button {
-    height: 340px;
-    width: 100px;
+    height: 490px;
+    width: 150px;
     background-color: blueviolet;
     color: aliceblue;
     font-size: 100px;
@@ -23,9 +23,9 @@ section {
 #canvas {
     background-color: blanchedalmond;
     border: 20px blueviolet solid;
-    width: 400px;
-    height: 300px;
+    width: 600px;
+    height: 450px;
 }
 a{
-    margin-right: 30%;
+    margin-right: 18%;
 }

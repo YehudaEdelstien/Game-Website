@@ -31,12 +31,12 @@ function gameplay() {
 
 }
 
-
+//draw
 function drawCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
-    ctx.drawImage(ambulance, 600, 400, 100, 100)
     helpMe.forEach(element => { element.draw() });
+    ctx.drawImage(ambulance, 600, 380, 150, 100)
     player.draw('red');
 
 }
@@ -47,9 +47,9 @@ function drawCanvas() {
 
 const player = {
     x: (canvas.width / 2),
-    y: (canvas.height / 4) * 3,
-    w: 220,
-    h: 140,
+    y: (canvas.height / 4) * 3 - 20,
+    w: 200,
+    h: 130,
 
     step: 140,
     color: 'blue',
@@ -135,14 +135,14 @@ class Citizen {
     };
     coliderWithPlayer() {
         if (
-            this.y + this.h > player.y + (player.h / 2) &&
+            this.y + this.h > player.y + (player.h / 1.5) &&
             this.y < player.y + player.h &&
-            this.x < player.x + player.w &&
-            this.x + this.w > player.x
+            this.x < player.x + player.w  -60 &&
+            this.x + this.w > player.x +60
         ) {
             this.bouncing = true;
         }
-        if (this.y < 10) {
+        if (this.y < 100) {
             this.bouncing = false;
         }
     }
@@ -153,7 +153,7 @@ let counter = 240
 const helpMe = []
 function addCitizen() {
     if (counter == 0) {
-        const npc = new Citizen(7, 7);
+        const npc = new Citizen(80, 140);
         helpMe.push(npc)
         imgNum  = !imgNum;
         counter = 240
