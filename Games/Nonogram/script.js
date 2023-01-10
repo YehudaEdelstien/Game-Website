@@ -1,21 +1,21 @@
 window.onload = () => {
-    board = document.getElementById("board");
-    topNumbers = document.getElementById("topNumbers");
-    sideNumbers = document.getElementById("sideNumbers");
+    const boardTable = document.getElementById("board");
+    const topNumbers = document.getElementById("topNumbers");
+    const sideNumbers = document.getElementById("sideNumbers");
 
     let boardState = [];
     
     let isClicking = false;
-    board.addEventListener("mouseover", selectedCell);
-    board.addEventListener("mousedown", clickedCell);
+    boardTable.addEventListener("mouseover", selectedCell);
+    boardTable.addEventListener("mousedown", clickedCell);
     document.addEventListener("mouseup", mouseUp)
 
-    boardRows = 5;
-    boardCols = 5;
+    let boardRows = 5;
+    let boardCols = 5;
 
     function makeBoard() {
         for (let i = 0; i < boardRows; i++){
-            let row = board.insertRow();
+            let row = boardTable.insertRow();
             boardState.push([]);
             for (let j = 0; j < boardCols; j++){
                 let cell = row.insertCell();
@@ -25,6 +25,7 @@ window.onload = () => {
     }
     makeBoard();
     
+    // input events
     function selectedCell(e) {
         if (isClicking === false || e.target.cellIndex === undefined) return;
 
