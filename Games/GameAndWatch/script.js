@@ -2,11 +2,15 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+
+//===========//
+//  Images 
+//===========//
 let backgroundImg;
 let playerImg;
 let kid2Img;
 let kid1Img;
-let ambulance;
+let ambulanceImg;
 
 
 window.onload = () => {
@@ -14,7 +18,7 @@ window.onload = () => {
     playerImg = document.getElementById('playerImg');
     kid1Img = document.getElementById('kid1Img');
     kid2Img = document.getElementById('kid2Img');
-    ambulance = document.getElementById('ambulance');
+    ambulanceImg = document.getElementById('ambulance');
 }
 //===========//
 //  Gameplay 
@@ -27,6 +31,7 @@ function gameplay() {
     helpMe.forEach(element => {
         element.movement()
         element.coliderWithPlayer()
+        element.coliderWithAmbulance()
     });
 
 }
@@ -35,8 +40,8 @@ function gameplay() {
 function drawCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
-    helpMe.forEach(element => { element.draw() });
-    ctx.drawImage(ambulance, 600, 380, 150, 100)
+    helpMe.forEach(civilizen => { civilizen.draw() });
+    ambulance.draw();
     player.draw('red');
 
 }
@@ -103,7 +108,6 @@ document.addEventListener('keydown', (e) => {
 //===========//
 //  Citizens 
 //===========//
-
 class Citizen {
     constructor(x, y) {
         this.x = x,
@@ -115,12 +119,13 @@ class Citizen {
 
     fallSpeed = 8;
     bouncing = false;
-    img = imgNum?  kid1Img : kid2Img;
+    img = imgNum ? kid1Img : kid2Img;
+    saved = false;
 
     draw() {
-        // ctx.fillStyle = this.color;
-        // ctx.fillRect(this.x, this.y, this.w, this.h);
-        ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+        if (!this.saved) {
+            ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+        }
     };
     movement() {
 
@@ -137,17 +142,37 @@ class Citizen {
         if (
             this.y + this.h > player.y + (player.h / 1.5) &&
             this.y < player.y + player.h &&
-            this.x < player.x + player.w  -60 &&
-            this.x + this.w > player.x +60
+            this.x < player.x + player.w - 60 &&
+            this.x + this.w > player.x + 60
         ) {
             this.bouncing = true;
         }
+
         if (this.y < 100) {
             this.bouncing = false;
+        }
+    };
+    coliderWithAmbulance() {
+        if (
+            this.y + this.h > ambulance.y &&
+            this.y < ambulance.y + ambulance.h &&
+            this.x < ambulance.x + ambulance.w &&
+            this.x + this.w > ambulance.x
+        ) {
+            if (!this.saved) {
+                score.up();
+            }
+            this.saved = true;
+        }
+    };
+    fallCheck() {
+        if (this.x) {
+            
         }
     }
 }
 
+// make citizens
 let imgNum = true;
 let counter = 240
 const helpMe = []
@@ -155,9 +180,31 @@ function addCitizen() {
     if (counter == 0) {
         const npc = new Citizen(80, 140);
         helpMe.push(npc)
-        imgNum  = !imgNum;
+        imgNum = !imgNum;
         counter = 240
     }
     counter -= 1
 }
 new Citizen(8, 9)
+
+//===========//
+//  Ambulance 
+//===========//
+const ambulance = {
+    x: 600,
+    y: 380,
+    w: 150,
+    h: 100,
+
+    draw() {
+        ctx.drawImage(ambulanceImg, this.x, this.y, this.w, this.h)
+    }
+}
+
+const score = {
+    score:0,
+
+    up(){
+        this.score += 1
+    },
+};
