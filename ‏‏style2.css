@@ -1,0 +1,90 @@
+:root {
+    --color1: #f1c95a;
+    --color2: #6cd47f;
+    --color3: #293253;
+}
+
+body {
+    margin: 0;
+    text-align: center;
+    font-family: Arial;
+    color: white;
+    background-color: var(--color3);
+    background-repeat: no-repeat;
+    background: url('רקע.jpg') no-repeat ;    
+}
+
+input, button{
+    display: block;
+    height: 40px;
+    width: 200px;
+    margin: auto;
+}
+
+input {
+    border: 1px solid grey;
+    border-bottom: none;
+}
+
+input:hover {
+    background-color: var(--color2);
+}
+
+input:first-of-type {
+    border-radius: 10px 10px 0 0;
+}
+
+input:last-of-type {
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+button {
+    border: 2px solid black;
+    border-radius: 4px 4px 10px 10px;
+}
+
+button:hover {
+    background-color: var(--color2);
+}
+
+.forms {
+    background-color: var(--color1);
+    color: var(--color3);
+    padding: 10px 0;
+    min-width: initial;
+}
+
+.formContainer {
+    width: 100vw;
+    max-width: 300px;
+    margin: 10px auto;
+    height: 325px;
+    box-sizing: border-box;
+    border: 10px outset var(--color2);
+    border-radius: 15px;
+    background-color: white;
+}
+
+.formContainer h1 {
+    margin: 10px auto;
+}
+
+@media (min-width: 576px) {
+    .forms {
+        min-width: 570px;
+        margin: 0 auto;
+        border: 4px var(--color2) solid;
+        display: flex;
+        height: 70vh;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+    }
+
+    .formContainer {
+        width: 250px;
+        margin: 20px 10px;
+        flex-shrink: 0;
+    }
+}

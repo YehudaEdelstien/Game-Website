@@ -28,7 +28,7 @@ let vsBot = true;
 // מפעיל רובוט רמה ב
 let smartBot = true;
 // מחכה לרובוט
-let waitForCom = false;
+let waitForBot = false;
 
 // הרצה בטעינת העמוד
 window.onload = () => {
@@ -136,7 +136,7 @@ function menuButtons() {
 
 // מפעיל פעולות על המשבצת שנלחצה 
 function play() {
-    if (gameFinished() || waitForCom) return;
+    if (gameFinished() || waitForBot) return;
 
     let makeMove = set(this, turnX ? "X" : "O"); //👨‍🦰 Player plays
 
@@ -144,14 +144,14 @@ function play() {
         endTurn()
 
         if (vsBot && !gameFinished()) {
-            waitForCom = true;
+            waitForBot = true;
 
             setTimeout(() => { //🤖 compueter plays
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
                 smartBot ? comSmartPlay() : comdumbPlay();
-                waitForCom = false;
+                waitForBot = false;
             }, 600);
         }
 
@@ -370,7 +370,7 @@ function winCheck() {
 
 function scoreUp() {
     if (
-        !waitForCom &&
+        !waitForBot &&
         vsBot &&
         weHaveWinner
     ) {
@@ -383,8 +383,6 @@ function scoreUp() {
                 highScoreS++
             }
         }
-        // highScore = (highScore > score) ? highScore : score;
-        // highScoreS = (highScoreS > scoreS) ? highScoreS : scoreS;
 
         const userObj = doesUserExist(getCurrentUser());
         userObj.TicTacToe = {
@@ -423,7 +421,7 @@ function resetAll() {
     playAgain.classList.add('hide');
     toMenu.classList.add('hide');
     turnCounter = 0;
-    waitForCom = false;
+    waitForBot = false;
     turnX = !youX;
     weHaveWinner = false;
     setOutput();
