@@ -16,7 +16,7 @@ class Navbar extends HTMLElement {
         <div class="headerItem dropdownMenu">
             <div class="dropdownButton">Hello, ${username} ⏬</div>
             <div class="dropdownItem">
-                <p>Profile</p>
+                <!--<p>Profile</p>-->
                 <p onclick="setCurrentUser()">Log out</p>
             </div>
         </div>
