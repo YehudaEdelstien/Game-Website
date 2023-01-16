@@ -1,6 +1,12 @@
 //מערך ללוח
 const board = [null, "", "", "", "", "", "", "", "", ""]
 
+const boardX = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+];
+
 // לוח מצב
 let output;
 let playAgain;
@@ -158,6 +164,7 @@ function play() {
     }
 
 }
+
 
 //מסיים את התור
 function endTurn() {
@@ -339,9 +346,11 @@ function setOutput() {
     }
 }
 
+const B = board;
+
+const isLineFull = (lineNumber) =>  B[1] != "" && B[1] == B[2] && B[2] == B[3];
 // עובר על כל הלוח ומחפש ניצחון
 function winCheck() {
-    const B = board;
     //all those variables used to check if is there 1 line or column with "X" or "O" 
     let line1 = B[1] != "" && B[1] == B[2] && B[2] == B[3],
         line2 = B[4] != "" && B[4] == B[5] && B[5] == B[6],
@@ -369,11 +378,7 @@ function winCheck() {
 }
 
 function scoreUp() {
-    if (
-        !waitForBot &&
-        vsBot &&
-        weHaveWinner
-    ) {
+    if (!waitForBot && vsBot &&  weHaveWinner) {
         if (vsBot) {
             if (!smartBot) {
                 score++
