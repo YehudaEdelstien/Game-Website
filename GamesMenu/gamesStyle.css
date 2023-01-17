@@ -1,12 +1,19 @@
 :root {
-    --color1: #f1c95a;
-    --color2: #6cd47f;
+    --color1: #cc0da8;
+    --color2: #6f44ff;
     --color3: #293253;
 }
 
-body {   
-    background-color: var(--color1);
-    color: var(--color3);
+body {
+    /* background-color: var(--color3); */
+    background-image: url('../siteBackground.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100vw 100vh;
+    color: white;
+    font-weight: 900;
+    font-size: 2em;
+
 }
 
 main {
@@ -18,8 +25,9 @@ main {
 }
 
 a {
-    color: var(--color3);
+    color: white;
     text-decoration: none;
+    font-size: 100px;
 }
 
 .gameContainer {
@@ -32,7 +40,8 @@ a {
     max-width: 90vw;
     margin: 10px auto;
     background-color: lightseagreen;
-    border: 10px outset var(--color2);
+    border: 10px solid var(--color2);
+    border-color: var(--color2) var(--color1) var(--color1) var(--color2);
     border-radius: 7px;
     overflow: hidden;
     display: flex;

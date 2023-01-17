@@ -9,6 +9,27 @@ let imgNum = true;
 
 
 //===========//
+// 🎵Music🎵 
+//===========//
+const backgroundMusic = new Audio('./Audio/Background Music.mp3');
+const playerNetSfx = new Audio('./Audio/Rescue Net.mp3');
+const playerMoveSfx = new Audio('./Audio/Movement.mp3');
+const kidBounceSfx = new Audio('./Audio/Jump.mp3');
+const kidFallSfx = new Audio('./Audio/Fall2.mp3');
+const gameOverSfx = new Audio('./Audio/GAME OVER.mp3');
+const ambulanceSfx = new Audio('./Audio/Ambulance.mp3');
+const levelUpSfx = new Audio('./Audio/YEY.mp3')
+
+backgroundMusic.volume = 0.6;
+playerNetSfx.volume = 0.6; 
+playerMoveSfx.volume = 0.5;
+
+function playSfx(sfx) {
+    sfx.pause();
+    sfx.currentTime = 0;
+    sfx.play();
+}
+//===========//
 // 🖼️Images🖼️ 
 //===========//
 const backgroundImg = new Image();
@@ -63,10 +84,10 @@ window.onload = async () => {
 //============//
 // 🎮GamePlay🎮
 //============//
-
 function gamePlay() {
     drawCanvas();
-    if (gameOver()) { return; }
+    if (gameOver.isTrue) { return; }
+    backgroundMusic.play()
     level.addKid()
     allKids.forEach(kid => {
         kid.movement()
@@ -83,7 +104,10 @@ function drawCanvas() {
     score.print();
     score.drawFall();
     level.draw();
-    if (gameOver()) { return; }
+    if (gameOver.isTrue) {
+        gameOver.draw();
+        return;
+    }
     allKids.forEach(kid => { kid.draw() });
     ambulance.draw();
     player.draw();
@@ -91,29 +115,48 @@ function drawCanvas() {
 
 
 }
+
 ///game-over
-function gameOver() {
-    if (score.fallCounter >= 3) {
-        ctx.fillStyle = 'white'
-        ctx.fillRect(0, canvas.height / 2 + 10, canvas.width, 30)
+const gameOver = {
+    isTrue: false,
+    font: 80,
+    lineHeight: -30,
+    lineY: -15,
 
-        ctx.font = '80px fantasy';
-        ctx.fillStyle = 'red';
-        ctx.strokeStyle = 'white';
-        ctx.fillText('GAME OVER', canvas.width / 3.7, canvas.height / 1.7);
-        ctx.strokeText('GAME OVER', canvas.width / 3.7 - 1, canvas.height / 1.7);
-        ctx.strokeText('GAME OVER', canvas.width / 3.7 - 2, canvas.height / 1.7);
+    draw() {
+        if (score.fallCounter >= 3 && !this.isTrue) {
+            setTimeout(() => {
+                this.isTrue = true;
+                playSfx(gameOverSfx);
+                backgroundMusic.pause()
+            }, 300);
+        }
+        if (this.isTrue) {
+            if (this.lineHeight < 0) {
+                this.lineHeight += 0.5
+            }
+            if (this.lineY < 0) {
+                this.lineY += 0.25
+            }
+            ctx.fillStyle = 'white'
+            ctx.fillRect(0, canvas.height / 2 + 10 - this.lineY, canvas.width, 30 + this.lineHeight)
 
-        ctx.font = 'bold 35px Courier';
-        ctx.fillStyle = '#dbdbdb';
-        ctx.strokeStyle = 'black'
-        ctx.fillText('try again', canvas.width / 3 + 30, canvas.height / 1.5);
-        ctx.strokeText('try again', canvas.width / 3 + 30, canvas.height / 1.5);
-        ctx.fillText('press any button', canvas.width / 3 - 40, canvas.height / 1.38);
-        ctx.strokeText('press any button', canvas.width / 3 - 40, canvas.height / 1.38);
-        return true;
+            ctx.font = `${this.font}px fantasy`;
+            ctx.fillStyle = 'red';
+            ctx.strokeStyle = 'white';
+            ctx.fillText('GAME OVER', canvas.width / 3.7, canvas.height / 1.7);
+            ctx.strokeText('GAME OVER', canvas.width / 3.7 - 1, canvas.height / 1.7);
+            ctx.strokeText('GAME OVER', canvas.width / 3.7 - 2, canvas.height / 1.7);
+
+            ctx.font = 'bold 35px Courier';
+            ctx.fillStyle = '#dbdbdb';
+            ctx.strokeStyle = 'black'
+            ctx.fillText('press here', canvas.width / 3 + 30, canvas.height / 1.5);
+            ctx.strokeText('press here', canvas.width / 3 + 30, canvas.height / 1.5);
+            ctx.fillText('to try again', canvas.width / 3 + 5, canvas.height / 1.38);
+            ctx.strokeText('to try again', canvas.width / 3 + 5, canvas.height / 1.38);
+        }
     }
-    return false;
 }
 //play-again
 function resetAll() {
@@ -128,8 +171,11 @@ function resetAll() {
         level.toNextLevel = 20;
         background.bgCounter = 1;
         score.score = 0;
+        gameOver.lineHeight = -30;
+        gameOver.lineY = -15;
         score.fallCounter = 0;
-    }, 300)
+        gameOver.isTrue = false
+    }, 1)
 }
 //===========//
 // 🧑‍🚒Player🧑‍🚒
@@ -180,6 +226,31 @@ const rightButton = document.getElementById('rbutton');
 const leftButton = document.getElementById('lbutton');
 let keyup = true;
 
+function right() {
+    if (gameOver.isTrue) { return }
+    playSfx(playerMoveSfx);
+    animateButtons(rightButton);
+    player.moveRight();
+    keyup = false;
+}
+
+function left() {
+    if (gameOver.isTrue) { return }
+    playSfx(playerMoveSfx);
+    animateButtons(leftButton);
+    player.moveLeft();
+    keyup = false;
+}
+function reset() {
+    if (gameOver.isTrue) resetAll();
+}
+// rightButton.addEventListener("touchend", () => { keyup = true })
+// rightButton.addEventListener("mousedown", right)
+rightButton.addEventListener("touchstart", right)
+leftButton.addEventListener("touchstart", left);
+canvas.addEventListener('click', reset)
+
+
 document.addEventListener('keyup', () => {
     keyup = true;
 })
@@ -188,19 +259,15 @@ document.addEventListener('keydown', (e) => {
     if (keyup) {
         switch (e.key) {
             case 'ArrowRight':
-                animateButtons(rightButton);
-                player.moveRight();
-                keyup = false;
+                right();
                 break;
 
             case 'ArrowLeft':
-                animateButtons(leftButton);
-                player.moveLeft();
-                keyup = false;
+                left();
                 break;
 
             default:
-                if (gameOver()) resetAll();
+                reset();
                 break;
 
         }
@@ -234,7 +301,9 @@ class Kid {
     isFell = false;
 
     draw() {
+        ctx.globalAlpha = this.isFell ? 0.5 : 1;
         ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+        ctx.globalAlpha = 1;
     };
     movement() {
 
@@ -259,8 +328,10 @@ class Kid {
             this.x + this.w > player.x + 60 &&
             !this.bouncing
         ) {
+            playSfx(playerNetSfx);
             player.animation();
             score.scoreUp();
+            playSfx(kidBounceSfx);
             this.bouncing = true;
         }
         if (this.y < 100) {
@@ -276,6 +347,7 @@ class Kid {
         ) {
             ambulance.animation();
             score.scoreUp();
+            playSfx(ambulanceSfx);
             this.saved = true;
             allKids = allKids.filter(kid => !kid.saved);
         }
@@ -285,11 +357,19 @@ class Kid {
             this.fallSpeed = 0;
             this.moveSpeed = 0
             this.isFell = true;
+            playSfx(kidFallSfx);
             setTimeout(() => {
                 allKids = allKids.filter(kid => !kid.isFell);
-            }, 1300);
+            }, 500);
             this.img = kidFall;
             score.fallCounter += 1;
+            gameOver.draw();
+        }
+        if (this.isFell) {
+            this.y -= 0.1;
+            this.X -= 0.1;
+            this.w += 0.2;
+            this.h += 0.2;
         }
     }
 }
@@ -324,6 +404,7 @@ const level = {
             level.toNextLevel += 40;
             this.level += 1;
             this.counterForDraw = 3 * framePerSecond;
+            playSfx(levelUpSfx);
         }
     },
     drawLevelUp() {
@@ -389,7 +470,7 @@ const background = {
         ctx.drawImage(this.animation(), 0, 0, canvas.width, canvas.height)
     },
     animation() {
-        if (gameOver()) { return backgroundImg; }
+        if (gameOver.isTrue) { return backgroundImg; }
         this.bgCounter += 0.07;
         if (this.bgCounter >= 5) {
             this.bgCounter = 1;
