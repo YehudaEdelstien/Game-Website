@@ -26,13 +26,13 @@ function signIn() {
         document.getElementById('nEmail').value == '' ||
         document.getElementById('nPassword').value == ''
     ) {
-        alert('invalid!');
+        alert('Invalid details!');
         return;
     }
         
         let user = document.getElementById('nUser').value; // get new user value
         if (doesUserExist(user)) {
-            alert('you alredy here! please log in.') // ❗upgrade later
+            alert('You are already here! Please log in.')
     
         } else {
             addUser(createObjUser())
@@ -53,7 +53,7 @@ function logIn() {
         alert('Welcome!');
         location.href = "./GamesMenu/games.html";
     } else {
-        alert('Error')
+        alert('Invalid details!')
     };
 
 }
