@@ -28,6 +28,7 @@ td {
     border: 1px solid grey;
     flex-grow: 1;
     display: flex;
+    flex-shrink: 0;
 }
 
 .topNumberElement {
@@ -42,8 +43,6 @@ td {
 }
 
 .number {
-    width: 25px;
-    height: 25px;
     text-align: center;
     font-size: large;
     display: flex;
@@ -51,8 +50,17 @@ td {
     align-items: center;
 }
 
+.sideNumberElement .number{
+    margin-right: 5px;
+}
+
 .selectedCell {
     background-color: black;
+}
+
+.rejectedCell {
+    background-image: url("X.png");
+    background-size: contain;
 }
 
 #gameWindow {

@@ -8,6 +8,7 @@ window.onload = () => {
     let boardState = [];
 
     let isClicking = false;
+    let clickType = 0;
 
     let boardRows = 5;
     let boardCols = 5;
@@ -66,7 +67,20 @@ window.onload = () => {
                 [false, false, false, true, false, false, true, false, false, false],
                 [false, false, false, false, true, true, false, false, false, false]
             ],
-        star:
+        coffee:
+            [
+                [false, false, false, false, false, false, true, true, false, false],
+                [false, false, false, true, true, true, true, false, false, false],
+                [false, false, true, true, true, false, false, false, false, false],
+                [false, true, true, true, true, true, true, false, false, false],
+                [false, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, false, true, false],
+                [false, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, false, false, false],
+                [false, false, true, true, true, true, false, false, false, false],
+                [true, true, true, true, true, true, true, true, true, true],
+            ],
+        s:
             [
                 [false, false, false, false, false, false, false, false, false, false],
                 [false, false, false, false, false, false, false, false, false, false],
@@ -79,7 +93,7 @@ window.onload = () => {
                 [false, false, false, false, false, false, false, false, false, false],
                 [false, false, false, false, false, false, false, false, false, false]
             ],
-        star:
+        d:
             [
                 [false, false, false, false, false, false, false, false, false, false],
                 [false, false, false, false, false, false, false, false, false, false],
@@ -92,20 +106,7 @@ window.onload = () => {
                 [false, false, false, false, false, false, false, false, false, false],
                 [false, false, false, false, false, false, false, false, false, false]
             ],
-        star:
-            [
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false]
-            ],
-        puzzleNames: ["heart", "mask", "tower", "watch", "star", "heart", "heart", "heart", "heart", "heart"]
+        puzzleNames: ["heart", "mask", "tower", "watch", "coffee", "heart", "heart", "heart", "heart", "heart"]
     }
 
     function makeBoard() {
@@ -181,7 +182,6 @@ window.onload = () => {
         return numArr;
     }
 
-
     // input events
     function selectedCell(e) {
         if (isClicking === false || e.target.cellIndex === undefined) return;
@@ -190,12 +190,36 @@ window.onload = () => {
         const row = cell.closest("tr");
         const cellnums = [row.rowIndex, cell.cellIndex]
 
-        cell.classList.toggle("selectedCell");
-        boardState[cellnums[0]][cellnums[1]] = !boardState[cellnums[0]][cellnums[1]];
+        if (clickType === 2){
+            cell.innerHTML = ""
+            cell.classList.remove("rejectedCell");
+            cell.classList.add("selectedCell");
+            boardState[cellnums[0]][cellnums[1]] = true;
+        } else if (clickType === 3){
+            cell.classList.remove("selectedCell");
+            cell.classList.add("rejectedCell")
+            boardState[cellnums[0]][cellnums[1]] = false;
+        } else {
+            cell.classList.remove("selectedCell");
+            cell.classList.remove("rejectedCell");
+            boardState[cellnums[0]][cellnums[1]] = false;
+        }
         checkVictory();
     }
 
     function clickedCell(e) {
+        const cell = e.target;
+        const row = cell.closest("tr");
+        const cellnums = [row.rowIndex, cell.cellIndex];
+
+        if (e.which === 3){
+            clickType = 3;
+        } else if (boardState[cellnums[0]][cellnums[1]] === false) {
+            clickType = 2;
+        } else {
+            clickType = 1;
+        }
+        
         isClicking = true;
         selectedCell(e);
     }
