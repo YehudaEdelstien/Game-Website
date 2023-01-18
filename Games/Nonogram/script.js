@@ -107,11 +107,10 @@ window.onload = () => {
                 [false, false, false, true, true, false, false, false, true, true],
                 [false, true, true, true, true, true, true, false, true, true]
             ],
-        random5x5: randomBoard(5, 5),
-        random10x10: randomBoard(10, 10),
+        get random5x5(){return randomBoard(5, 5)},
+        get random10x10(){return randomBoard(10, 10)},
         puzzleNames: ["heart", "mask", "tower", "watch", "star", "coffee", "menorah", "computer", "random5x5", "random10x10"]
     }
-
     function randomBoard(rows, cols){
         let arr = []
         for (let i = 0; i < rows; i++){
@@ -266,8 +265,9 @@ window.onload = () => {
 
     // game functions
     function startGame(level) {
-        boardRows = puzzles[level].length;
-        boardCols = puzzles[level][0].length;
+        puz = puzzles[level];
+        boardRows = puz.length;
+        boardCols = puz[0].length;
         currentPuzzle = puzzles[level];
         levelSelect.style.display = "none";
         makeBoard();
