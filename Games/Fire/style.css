@@ -1,8 +1,9 @@
-body{
-  
+body {
+
     background-image: url('./Images/backgroundBody.webp');
     background-size: 100vw 100vh;
 }
+
 .gamepad {
     height: 486px;
     width: 150px;
@@ -47,13 +48,29 @@ section {
     height: 450px;
 }
 
+footer {
+    position: absolute;
+    bottom: 1vh;
+    right: 3vw;
+    text-align: end;
+    width: 100vw;
+    color: black;
+    font-weight: 700;
+
+}
+
+footer>span {
+    font-weight: 900;
+    color: #402e01;
+}
 
 @media (max-width: 1000px) {
     #canvas {
         width: 60vw;
         height: 45vw;
     }
-    .gamepad{
+
+    .gamepad {
         width: 15vw;
         height: auto;
     }

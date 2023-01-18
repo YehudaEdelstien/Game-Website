@@ -26,8 +26,8 @@ let score = 0;
 let scoreS = 0;
 // HighScore ניקוד
 let scoreDB = doesUserExist(getCurrentUser()).TicTacToe || 0;
-let highScore = scoreDB.vsCom || 0;
-let highScoreS = scoreDB.vsSmartCom || 0;
+let allTimeScoreDumb = scoreDB.vsDumbBot || 0;
+let allTimeScoreSmart = scoreDB.vsSmartBot || 0;
 
 // מפעיל רובוט
 let vsBot = true;
@@ -156,7 +156,7 @@ function play() {
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
                 console.log("🚀 ~ file: script.js:64 ~ vsCom", vsBot)
-                smartBot ? comSmartPlay() : comdumbPlay();
+                smartBot ? botSmartPlay() : botDumbPlay();
                 waitForBot = false;
             }, 600);
         }
@@ -176,7 +176,7 @@ function endTurn() {
 }
 
 // מחזיר משבצת פנויה רנדומלית בשביל הבוט
-function randomCOM() {
+function randomPlayForBot() {
     let makeMove = false;
     while (!makeMove) {
         let random = Math.floor(Math.random() * (9));
@@ -186,19 +186,19 @@ function randomCOM() {
 }
 
 // רובוט רמה א
-function comdumbPlay() {
-    randomCOM();
+function botDumbPlay() {
+    randomPlayForBot();
     endTurn();
 }
 
 //רובוט רמה ב
-function comSmartPlay() {
+function botSmartPlay() {
     let movement = checkAI(turnX ? 'X' : 'O') || checkAI(!turnX ? 'X' : 'O');
 
     if (movement) {
         set(document.getElementById(movement), turnX ? 'X' : 'O')
     } else {
-        randomCOM()
+        randomPlayForBot()
     }
     endTurn()
 }
@@ -382,17 +382,17 @@ function scoreUp() {
         if (vsBot) {
             if (!smartBot) {
                 score++
-                highScore++
+                allTimeScoreDumb++
             } else {
                 scoreS++
-                highScoreS++
+                allTimeScoreSmart++
             }
         }
 
         const userObj = doesUserExist(getCurrentUser());
         userObj.TicTacToe = {
-            vsCom: highScore,
-            vsSmartCom: highScoreS,
+            vsDumbBot: allTimeScoreDumb,
+            vsSmartBot: allTimeScoreSmart,
         };
         updateUserData(userObj);
         printScore();
@@ -403,8 +403,8 @@ function printScore() {
     document.getElementById("score").innerText =
 `        score  ${getCurrentUser()}
        this time | all time 
-  vs dumb Bot  ${score} | ${highScore}  
-  vs smart Bot ${scoreS} | ${highScoreS}  `;
+  vs dumb Bot  ${score} | ${allTimeScoreDumb}  
+  vs smart Bot ${scoreS} | ${allTimeScoreSmart}  `;
 }
 
 

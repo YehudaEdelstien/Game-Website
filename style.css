@@ -22,8 +22,8 @@ input, button{
     height: 40px;
     width: 200px;
     margin: auto;
-    /* opacity: 0; */
-    /* transition: opacity 1s ease 0.1s; */
+    opacity: 0.4;
+    transition: opacity 0.2s ease 0.1s;
     /* transition: height 1s; */
 
 }
@@ -37,10 +37,10 @@ input {
     color: white;
     background-color: var(--color2);
 }
-/* 
+
 #reg-form:hover > *:not(h1) {
     opacity: 1;
-} */
+}
 
 /* #reg-form:hover + #login-form> *:not(h1) {
     opacity: 0;
@@ -57,9 +57,9 @@ input {
     border: 10px solid var(--color1);
     /* height: 100px; */
 }
-/* #login-form:hover > *:not(h1) {
+#login-form:hover > *:not(h1) {
     opacity: 1;
-} */
+}
 /* #login-form:hover {
     height: 330px;
     transition: height 1s;

@@ -21,7 +21,7 @@ const ambulanceSfx = new Audio('Audio/Ambulance.mp3');
 const levelUpSfx = new Audio('Audio/YEY.mp3')
 
 backgroundMusic.volume = 0.6;
-playerNetSfx.volume = 0.6; 
+playerNetSfx.volume = 0.6;
 playerMoveSfx.volume = 0.5;
 
 function playSfx(sfx) {
@@ -88,7 +88,7 @@ function gamePlay() {
     drawCanvas();
     if (gameOver.isTrue) { return; }
     backgroundMusic.play()
-    level.addKid()
+    level.checkForAddKid()
     allKids.forEach(kid => {
         kid.movement()
         kid.colliderWithPlayer()
@@ -289,9 +289,10 @@ class Kid {
     constructor(gender) {
         this.gender = gender;
         this.img = this.gender ? kid1Img : kid2Img;
+        this.y = this.startYPosition;
     }
+    startYPosition = 140;
     x = 80;
-    y = 140
     w = 80;
     h = 70;
     fallSpeed = 5;
@@ -306,7 +307,6 @@ class Kid {
         ctx.globalAlpha = 1;
     };
     movement() {
-
         if (this.bouncing) {
             this.y -= this.fallSpeed;
             // if (this.y < player.y + player.h - 80) {
@@ -351,6 +351,7 @@ class Kid {
             this.saved = true;
             allKids = allKids.filter(kid => !kid.saved);
         }
+
     };
     fallCheck() {
         if (this.y > player.y + (player.h / 2) + 10 && !this.isFell) {
@@ -412,32 +413,42 @@ const level = {
             ctx.font = 'bold 60px Courier';
             ctx.fillStyle = 'red'
             ctx.fillText('level up!', canvas.width / 2 - 50, 150);
-            // ctx.fillText(String(levelManager.timer), 100, 80);
             this.counterForDraw -= 1;
         }
     },
     makeNewKid() {
         const npc = new Kid(imgNum);
-        allKids.push(npc)
+        allKids.push(npc);
     },
     picRandom(min = 0, max = 0) {
         return Number(Math.floor(Math.random() * (max - min + 1)) + min)
     },
-    addKid() {
+    checkForAddKid() {
+        console.log("🚀 timer", this.timer)
         if (this.timer == 0) {
-            this.makeNewKid();
-            imgNum = !imgNum;
-            this.resetTimer()
+            let ready = true;
+            let high = (level < 2) ? 150 : 50;
+            allKids.forEach(kid => {
+                if (!kid.bouncing &&
+                    kid.y < kid.startYPosition + high + 100 ||
+                    kid.y < kid.startYPosition + high
+                ) {
+                    ready = false;
+                    this.timer += 1;
+                }
+            })
+            if (ready) {
+                this.makeNewKid();
+                imgNum = !imgNum;
+                this.resetTimer()
+            }
         }
         this.timer -= 1
     },
-
 }
 
-function makeNewKid() {
-    const npc = new Kid(imgNum);
-    allKids.push(npc)
-}
+
+
 
 
 
@@ -557,7 +568,7 @@ const score = {
 
     updateDB() {
         const userObj = doesUserExist(getCurrentUser());
-        userObj.fire = {
+        userObj.Fire = {
             highScore: this.highScore,
         };
         updateUserData(userObj);

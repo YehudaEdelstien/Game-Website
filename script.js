@@ -41,7 +41,7 @@ function signIn() {
             location.href = "./GamesMenu/games.html";
         }
     }
-
+    
 
 function logIn() {
     let user = document.getElementById('user').value;
