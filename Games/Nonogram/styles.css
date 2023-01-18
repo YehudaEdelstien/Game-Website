@@ -51,6 +51,10 @@ td {
 }
 
 .sideNumberElement .number{
+    margin-right: 10px;
+}
+
+.sideNumberElement .number{
     margin-right: 5px;
 }
 
@@ -70,6 +74,7 @@ td {
     background-color: lightcoral;
     margin: 100px auto;
     user-select: none;
+    font-family: 'Sofia Sans', sans-serif;
 }
 
 #topNumbers {

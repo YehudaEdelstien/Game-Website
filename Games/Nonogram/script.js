@@ -204,6 +204,20 @@ window.onload = () => {
             cell.classList.remove("rejectedCell");
             boardState[cellnums[0]][cellnums[1]] = false;
         }
+        if (clickType === 2){
+            cell.innerHTML = ""
+            cell.classList.remove("rejectedCell");
+            cell.classList.add("selectedCell");
+            boardState[cellnums[0]][cellnums[1]] = true;
+        } else if (clickType === 3){
+            cell.classList.remove("selectedCell");
+            cell.classList.add("rejectedCell")
+            boardState[cellnums[0]][cellnums[1]] = false;
+        } else {
+            cell.classList.remove("selectedCell");
+            cell.classList.remove("rejectedCell");
+            boardState[cellnums[0]][cellnums[1]] = false;
+        }
         checkVictory();
     }
 
@@ -213,7 +227,11 @@ window.onload = () => {
         const cellnums = [row.rowIndex, cell.cellIndex];
 
         if (e.which === 3){
-            clickType = 3;
+            if (cell.classList.contains("rejectedCell")){
+                clickType = 1;
+            } else {
+                clickType = 3;
+            }
         } else if (boardState[cellnums[0]][cellnums[1]] === false) {
             clickType = 2;
         } else {
