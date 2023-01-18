@@ -3,7 +3,8 @@ window.onload = () => {
     const topNumbers = document.getElementById("topNumbers");
     const sideNumbers = document.getElementById("sideNumbers");
     const victoryElement = document.getElementById("victoryText");
-    const levelSelect = document.getElementById("levelSelect")
+    const levelSelect = document.getElementById("levelSelect");
+    const backButton = document.getElementById("backButton");
 
     let boardState = [];
 
@@ -80,43 +81,60 @@ window.onload = () => {
                 [false, false, true, true, true, true, false, false, false, false],
                 [true, true, true, true, true, true, true, true, true, true],
             ],
-        s:
+        menorah:
             [
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false]
+                [true, false, true, false, true, true, false, true, false, true],
+                [true, false, true, false, true, true, false, true, false, true],
+                [true, false, true, false, true, true, false, true, false, true],
+                [true, false, true, true, true, true, true, true, false, true],
+                [true, true, false, true, true, true, true, false, true, true],
+                [false, true, true, false, true, true, false, true, true, false],
+                [false, false, true, true, true, true, true, true, false, false],
+                [false, false, false, false, true, true, false, false, false, false],
+                [false, false, false, true, true, true, true, false, false, false],
+                [false, true, true, true, true, true, true, true, true, false]
             ],
-        d:
+        computer:
             [
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false],
-                [false, false, false, false, false, false, false, false, false, false]
+                [true, true, true, true, true, true, true, true, false, false],
+                [true, false, false, false, false, false, false, true, false, false],
+                [true, false, false, false, false, false, false, true, false, false],
+                [true, false, false, false, false, false, false, true, false, false],
+                [true, false, false, false, false, false, false, true, false, false],
+                [true, true, true, true, true, true, true, true, false, false],
+                [false, false, false, true, true, false, false, false, false, false],
+                [false, false, false, true, true, false, false, false, false, false],
+                [false, false, false, true, true, false, false, false, true, true],
+                [false, true, true, true, true, true, true, false, true, true]
             ],
-        puzzleNames: ["heart", "mask", "tower", "watch", "coffee", "heart", "heart", "heart", "heart", "heart"]
+        random5x5: randomBoard(5, 5),
+        random10x10: randomBoard(10, 10),
+        puzzleNames: ["heart", "mask", "tower", "watch", "star", "coffee", "menorah", "computer", "random5x5", "random10x10"]
+    }
+
+    function randomBoard(rows, cols){
+        let arr = []
+        for (let i = 0; i < rows; i++){
+            arr.push([]);
+            for (let j = 0; j < cols; j++){
+                arr[i].push(Math.random() < 0.5);
+            }
+        }
+        console.log(arr);
+        return arr;
     }
 
     function makeBoard() {
         boardTable.innerHTML = "";
+        topNumbers.innerHTML = "";
+        sideNumbers.innerHTML = "";
         makeCells();
         makeNumbers(topNumbers, colNumbers);
         makeNumbers(sideNumbers, rowNumbers);
     }
 
     function makeCells() {
+        boardState = [];
         for (let i = 0; i < boardRows; i++) {
             let row = boardTable.insertRow();
             boardState.push([]);
@@ -261,13 +279,21 @@ window.onload = () => {
         }
     }
 
+    function returnToLevelSelect(){
+        victoryElement.style.display = "none";
+        levelSelect.style.display = "flex";
+    }
+
     // Event Listeners
     boardTable.addEventListener("mouseover", selectedCell);
     boardTable.addEventListener("mousedown", clickedCell);
     document.addEventListener("mouseup", mouseUp)
+
     const levelButtons = levelSelect.getElementsByTagName("div")
     for (let i = 0; i < levelButtons.length; i++) {
         levelButtons[i].addEventListener("click", () => { startGame(puzzles.puzzleNames[i]) });
         levelButtons[i].innerHTML = puzzles.puzzleNames[i];
     }
+
+    backButton.addEventListener("click", returnToLevelSelect)
 };
