@@ -1,0 +1,120 @@
+:root {
+    --color1: #cc0da8;
+    --color2: #6f44ff;
+    --color3: #293253;
+}
+
+body {
+    margin: 0;
+    text-align: center;
+    font-family: Arial;
+    color: white;
+    background-color: var(--color3);
+    background-image: url('siteBackground.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100vw 100vh;
+    user-select: none;
+}
+
+input, button{
+    display: block;
+    height: 40px;
+    width: 200px;
+    margin: auto;
+    /* opacity: 0; */
+    /* transition: opacity 1s ease 0.1s; */
+    /* transition: height 1s; */
+
+}
+
+input {
+    border: 1px solid grey;
+    border-bottom: none;
+}
+
+#reg-form > *:hover:not(h1) {
+    color: white;
+    background-color: var(--color2);
+}
+/* 
+#reg-form:hover > *:not(h1) {
+    opacity: 1;
+} */
+
+/* #reg-form:hover + #login-form> *:not(h1) {
+    opacity: 0;
+    transition-delay: opacity 0.2s;
+} */
+
+
+#login-form > *:hover:not(h1) {
+    color: white;
+    background-color: var(--color1);
+}
+
+#login-form {
+    border: 10px solid var(--color1);
+    /* height: 100px; */
+}
+/* #login-form:hover > *:not(h1) {
+    opacity: 1;
+} */
+/* #login-form:hover {
+    height: 330px;
+    transition: height 1s;
+} */
+
+input:first-of-type {
+    border-radius: 10px 10px 0 0;
+}
+
+input:last-of-type {
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+button {
+    border: 2px solid black;
+    border-radius: 4px 4px 10px 10px;
+}
+
+
+.forms {
+    color: var(--color3);
+    padding: 10px 0;
+    min-width: initial;
+}
+
+.formContainer {
+    width: 100vw;
+    max-width: 300px;
+    margin: 10px auto;
+    height: 325px;
+    box-sizing: border-box;
+    border: 10px solid var(--color2);
+    border-radius: 15px;
+    background-color: white;
+}
+
+.formContainer h1 {
+    margin: 10px auto;
+}
+
+@media (min-width: 576px) {
+    .forms {
+        min-width: 570px;
+        margin: 0 auto;
+        display: flex;
+        height: 70vh;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+    }
+
+    .formContainer {
+        width: 250px;
+        margin: 20px 10px;
+        flex-shrink: 0;
+    }
+}

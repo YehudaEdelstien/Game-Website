@@ -11,14 +11,14 @@ let imgNum = true;
 //===========//
 // 🎵Music🎵 
 //===========//
-const backgroundMusic = new Audio('./Audio/Background Music.mp3');
-const playerNetSfx = new Audio('./Audio/Rescue Net.mp3');
-const playerMoveSfx = new Audio('./Audio/Movement.mp3');
-const kidBounceSfx = new Audio('./Audio/Jump.mp3');
-const kidFallSfx = new Audio('./Audio/Fall2.mp3');
-const gameOverSfx = new Audio('./Audio/GAME OVER.mp3');
-const ambulanceSfx = new Audio('./Audio/Ambulance.mp3');
-const levelUpSfx = new Audio('./Audio/YEY.mp3')
+const backgroundMusic = new Audio('Audio/Background Music.mp3');
+const playerNetSfx = new Audio('Audio/Rescue Net.mp3');
+const playerMoveSfx = new Audio('Audio/Movement.mp3');
+const kidBounceSfx = new Audio('Audio/Jump.mp3');
+const kidFallSfx = new Audio('Audio/Fall2.mp3');
+const gameOverSfx = new Audio('Audio/GAME OVER.mp3');
+const ambulanceSfx = new Audio('Audio/Ambulance.mp3');
+const levelUpSfx = new Audio('Audio/YEY.mp3')
 
 backgroundMusic.volume = 0.6;
 playerNetSfx.volume = 0.6; 
@@ -54,16 +54,16 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 window.onload = async () => {
     try {
         await Promise.all([
-            loadImage(backgroundImg, './Images/background.png'),
-            loadImage(backgroundImg2, './Images/Background22.png'),
-            loadImage(backgroundImg3, './Images/Background33.png'),
-            loadImage(playerImg, './Images/Firemen.png'),
-            loadImage(playerImgBonce, './Images/Firemen2.png'),
-            loadImage(kid1Img, './Images/Kid1.png'),
-            loadImage(kid2Img, './Images/Kid2.png'),
-            loadImage(ambulanceImg, './Images/Ambulance.png'),
-            loadImage(ambulanceImg2, './Images/Ambulance2.png'),
-            loadImage(kidFall, './Images/x.png'),
+            loadImage(backgroundImg, 'Images/Background.png'),
+            loadImage(backgroundImg2, 'Images/Background22.png'),
+            loadImage(backgroundImg3, 'Images/Background33.png'),
+            loadImage(playerImg, 'Images/Firemen.png'),
+            loadImage(playerImgBonce, 'Images/Firemen2.png'),
+            loadImage(kid1Img, 'Images/Kid1.png'),
+            loadImage(kid2Img, 'Images/Kid2.png'),
+            loadImage(ambulanceImg, 'Images/Ambulance.png'),
+            loadImage(ambulanceImg2, 'Images/Ambulance2.png'),
+            loadImage(kidFall, 'Images/X.png'),
         ]);
         score.getDB();
         setInterval(gamePlay, 1000 / framePerSecond);
