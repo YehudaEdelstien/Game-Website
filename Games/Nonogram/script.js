@@ -3,26 +3,113 @@ window.onload = () => {
     const topNumbers = document.getElementById("topNumbers");
     const sideNumbers = document.getElementById("sideNumbers");
     const victoryElement = document.getElementById("victoryText");
+    const levelSelect = document.getElementById("levelSelect")
 
     let boardState = [];
-    
+
     let isClicking = false;
-    boardTable.addEventListener("mouseover", selectedCell);
-    boardTable.addEventListener("mousedown", clickedCell);
-    document.addEventListener("mouseup", mouseUp)
 
     let boardRows = 5;
     let boardCols = 5;
 
     let currentPuzzle = [
-        [false,true,false,true,false],
-        [true,true,true,true,true],
-        [true,true,true,true,true],
-        [false,true,true,true,false],
-        [false,false,true,false,false]
+        [false, true, false, true, false],
+        [true, true, true, true, true],
+        [true, true, true, true, true],
+        [false, true, true, true, false],
+        [false, false, true, false, false]
     ]
 
+    let puzzles = {
+        heart:
+            [
+                [false, true, false, true, false],
+                [true, true, true, true, true],
+                [true, true, true, true, true],
+                [false, true, true, true, false],
+                [false, false, true, false, false]
+            ],
+        mask:
+            [
+                [false, true, true, true, false],
+                [true, false, true, false, true],
+                [true, true, true, true, true],
+                [true, false, false, false, true],
+                [false, true, true, true, false]
+            ],
+        tower:
+            [
+                [true, false, true, false, true],
+                [true, true, true, true, true],
+                [false, true, true, true, false],
+                [false, true, false, true, false],
+                [false, true, true, true, false]
+            ],
+        watch:
+            [
+                [false, true, true, true, false],
+                [true, false, true, false, true],
+                [true, false, true, true, true],
+                [true, false, false, false, true],
+                [false, true, true, true, false]
+            ],
+        star:
+            [
+                [false, false, false, false, true, true, false, false, false, false],
+                [false, false, false, true, false, false, true, false, false, false],
+                [true, true, true, true, true, true, true, true, true, true],
+                [true, false, true, false, false, false, false, true, false, true],
+                [false, true, false, false, false, false, false, false, true, false],
+                [false, true, false, false, false, false, false, false, true, false],
+                [true, false, true, false, false, false, false, true, false, true],
+                [true, true, true, true, true, true, true, true, true, true],
+                [false, false, false, true, false, false, true, false, false, false],
+                [false, false, false, false, true, true, false, false, false, false]
+            ],
+        star:
+            [
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false]
+            ],
+        star:
+            [
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false]
+            ],
+        star:
+            [
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false],
+                [false, false, false, false, false, false, false, false, false, false]
+            ],
+        puzzleNames: ["heart", "mask", "tower", "watch", "star", "heart", "heart", "heart", "heart", "heart"]
+    }
+
     function makeBoard() {
+        boardTable.innerHTML = "";
         makeCells();
         makeNumbers(topNumbers, colNumbers);
         makeNumbers(sideNumbers, rowNumbers);
@@ -39,11 +126,11 @@ window.onload = () => {
         }
     }
 
-    function makeNumbers(el, func){
-        for (let i = 0; i < boardRows; i++){
+    function makeNumbers(el, func) {
+        for (let i = 0; i < boardRows; i++) {
             const numHolder = document.createElement("div");
             numHolder.className = "numberElement";
-            if (el === topNumbers){
+            if (el === topNumbers) {
                 numHolder.classList.add("topNumberElement");
             } else {
                 numHolder.classList.add("sideNumberElement");
@@ -51,7 +138,7 @@ window.onload = () => {
             el.appendChild(numHolder);
 
             const colNums = func(i);
-            for (let num of colNums){
+            for (let num of colNums) {
                 const numDiv = document.createElement("div");
                 numDiv.innerHTML = num;
                 numDiv.className = "number";
@@ -60,42 +147,41 @@ window.onload = () => {
         }
     }
 
-    function colNumbers(col){
+    function colNumbers(col) {
         const numArr = [];
         let counter = 0
-        for(let i = 0; i < boardRows; i++){
-            if (currentPuzzle[i][col] === true){
+        for (let i = 0; i < boardRows; i++) {
+            if (currentPuzzle[i][col] === true) {
                 counter++;
             } else if (counter > 0) {
                 numArr.push(counter);
                 counter = 0;
             }
         }
-        if (counter > 0){
+        if (counter > 0) {
             numArr.push(counter);
         }
         return numArr;
     }
 
-    function rowNumbers(row){
+    function rowNumbers(row) {
         const numArr = [];
         let counter = 0
-        for(let i = 0; i < boardCols; i++){
-            if (currentPuzzle[row][i] === true){
+        for (let i = 0; i < boardCols; i++) {
+            if (currentPuzzle[row][i] === true) {
                 counter++;
             } else if (counter > 0) {
                 numArr.push(counter);
                 counter = 0;
             }
         }
-        if (counter > 0){
+        if (counter > 0) {
             numArr.push(counter);
         }
         return numArr;
     }
-    makeBoard();
-    
-    
+
+
     // input events
     function selectedCell(e) {
         if (isClicking === false || e.target.cellIndex === undefined) return;
@@ -114,13 +200,32 @@ window.onload = () => {
         selectedCell(e);
     }
 
-    function mouseUp(){
+    function mouseUp() {
         isClicking = false;
     }
 
-    function checkVictory () {
-        if (boardState.toString() === currentPuzzle.toString()){
+    // game functions
+    function startGame(level) {
+        boardRows = puzzles[level].length;
+        boardCols = puzzles[level][0].length;
+        currentPuzzle = puzzles[level];
+        levelSelect.style.display = "none";
+        makeBoard();
+    }
+
+    function checkVictory() {
+        if (boardState.toString() === currentPuzzle.toString()) {
             victoryElement.style.display = "flex";
         }
+    }
+
+    // Event Listeners
+    boardTable.addEventListener("mouseover", selectedCell);
+    boardTable.addEventListener("mousedown", clickedCell);
+    document.addEventListener("mouseup", mouseUp)
+    const levelButtons = levelSelect.getElementsByTagName("div")
+    for (let i = 0; i < levelButtons.length; i++) {
+        levelButtons[i].addEventListener("click", () => { startGame(puzzles.puzzleNames[i]) });
+        levelButtons[i].innerHTML = puzzles.puzzleNames[i];
     }
 };
