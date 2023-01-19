@@ -18,7 +18,7 @@ const kidBounceSfx = new Audio('Audio/Jump.mp3');
 const kidFallSfx = new Audio('Audio/Fall2.mp3');
 const gameOverSfx = new Audio('Audio/GAME OVER.mp3');
 const ambulanceSfx = new Audio('Audio/Ambulance.mp3');
-const levelUpSfx = new Audio('Audio/YEY.mp3')
+const levelUpSfx = new Audio('Audio/LEVEL UP 2.mp3')
 
 backgroundMusic.volume = 0.6;
 playerNetSfx.volume = 0.6;
@@ -389,7 +389,7 @@ const level = {
     ],
     timer: 0,
     counterForDraw: 0,
-    toNextLevel: 20,
+    toNextLevel: 3,
     resetTimer() {
         this.timer = (this.timesLevels[this.level][this.picRandom(0, 4)]) * framePerSecond;
     },
@@ -424,14 +424,13 @@ const level = {
         return Number(Math.floor(Math.random() * (max - min + 1)) + min)
     },
     checkForAddKid() {
-        console.log("🚀 timer", this.timer)
         if (this.timer == 0) {
             let ready = true;
             let high = (level < 2) ? 150 : 50;
             allKids.forEach(kid => {
                 if (!kid.bouncing &&
-                    kid.y < kid.startYPosition + high + 100 ||
-                    kid.y < kid.startYPosition + high
+                    kid.y < kid.startYPosition + high + 100  && level.level < 3 ||
+                    kid.y < kid.startYPosition + high && level.level < 3
                 ) {
                     ready = false;
                     this.timer += 1;
