@@ -83,12 +83,12 @@ window.onload = () => {
         xPos: 0,
         yPos: canvas.height - 15,
         height: 8,
-        width: 70
+        width: 80
     }
 
     const ball = {
         radius: 10,
-        speed: 8,
+        speed: 6,
         xPos: 0,
         yPos: 0,
         angle: 0,
