@@ -26,7 +26,7 @@ function getHighScores(game, scoreKey, id) {
     const scoresArr = []
 
     usersArr.forEach(userObj => {
-        if (userObj[game]) {
+        if (userObj && userObj[game]) {
             let user = userObj.user
             let value = userObj[game][scoreKey];
             if (value) {

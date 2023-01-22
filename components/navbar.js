@@ -1,5 +1,5 @@
 let username = "Guest";
-if (doesUserExist(getCurrentUser())){
+if (doesUserExist(getCurrentUser()).name){
     username = doesUserExist(getCurrentUser()).name.split(" ")[0];
 }
 
@@ -17,7 +17,7 @@ class Navbar extends HTMLElement {
             <div class="dropdownButton">Hello, ${username} ⏬</div>
             <div class="dropdownItem">
                 <!--<p>Profile</p>-->
-                <p onclick="setCurrentUser()">Log out</p>
+                <p onclick="setCurrentUser('getOut')">Log out</p>
             </div>
         </div>
         </header>

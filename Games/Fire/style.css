@@ -5,10 +5,10 @@ body {
 }
 
 .gamepad {
-    height: 486px;
-    width: 150px;
+    height: 75vh;
+    aspect-ratio: 5/ 16;
     background-color: #aa7c08;
-    border: #926903 solid 2px;
+    border: #926903 solid 0.3vh;
     color: aliceblue;
     font-size: 100px;
     display: flex;
@@ -43,9 +43,9 @@ section {
 
 #canvas {
     background-color: blanchedalmond;
-    border: 20px #be952d solid;
-    width: 600px;
-    height: 450px;
+    border: 2.8vh #be952d solid;
+    height: 70vh;
+    aspect-ratio: 4/3;
 }
 
 footer {
@@ -64,14 +64,16 @@ footer>span {
     color: #402e01;
 }
 
-@media (max-width: 1000px) {
+@media only screen and (orientation: portrait) {
     #canvas {
-        width: 60vw;
         height: 45vw;
+        border: 2.2vw #be952d solid;
+        aspect-ratio: 4/3;
     }
 
     .gamepad {
-        width: 15vw;
-        height: auto;
+        height: 48.4vw;
+        border: #926903 solid 0.5vw;
+        aspect-ratio: 5/ 16;
     }
 }

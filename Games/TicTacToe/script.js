@@ -135,7 +135,6 @@ function menuButtons() {
     if (textMenu1 == undefined) { textMenu1 = 'you X'; }
     if (textMenu2 == undefined) { textMenu2 = ''; }
     text.innerText = textMenu1 + ' ' + textMenu2;
-    console.log(textMenu1, textMenu2, z);
 }
 
 

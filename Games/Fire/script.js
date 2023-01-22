@@ -7,6 +7,26 @@ let allKids = [];
 let imgNum = true;
 
 
+const loading = {
+    message: 'Loading',
+    dots: '',
+    gameIsReady: false,
+    animation() {
+        this.dots += '.'
+        if (this.dots === '...') {
+            this.dots = ''
+        }
+    },
+    draw() {
+        if (this.gameIsReady) { return; }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.percent += 10
+        ctx.font = '70px Courier'
+        ctx.fillStyle = 'white'
+        ctx.textAlign = 'center'
+        ctx.fillText(this.message + this.dots, canvas.width / 2, canvas.height / 2);
+    },
+}
 
 //===========//
 // 🎵Music🎵 
@@ -24,10 +44,32 @@ backgroundMusic.volume = 0.6;
 playerNetSfx.volume = 0.6;
 playerMoveSfx.volume = 0.5;
 
+
 function playSfx(sfx) {
     sfx.pause();
     sfx.currentTime = 0;
     sfx.play();
+}
+
+function playAllAudio() {
+    const audioArr = [
+        backgroundMusic,
+        playerNetSfx,
+        playerMoveSfx,
+        kidBounceSfx,
+        kidFallSfx,
+        gameOverSfx,
+        ambulanceSfx,
+        levelUpSfx
+    ]
+    for (const audio of audioArr) {
+        let keepIt = audio.volume;
+        audio.volume = 0;
+        audio.play();
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = keepIt / 10;
+    }
 }
 //===========//
 // 🖼️Images🖼️ 
@@ -51,33 +93,32 @@ const loadImage = async (image, source) => new Promise((resolve, reject) => {
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+//=============
+//   onload
+//=============
 window.onload = async () => {
+    loading.draw();
+    playAllAudio();
     try {
         await Promise.all([
-            loadImage(backgroundImg, 'Images/Background.png'),
-            loadImage(backgroundImg2, 'Images/Background22.png'),
-            loadImage(backgroundImg3, 'Images/Background33.png'),
-            loadImage(playerImg, 'Images/Firemen.png'),
-            loadImage(playerImgBonce, 'Images/Firemen2.png'),
-            loadImage(kid1Img, 'Images/Kid1.png'),
-            loadImage(kid2Img, 'Images/Kid2.png'),
-            loadImage(ambulanceImg, 'Images/Ambulance.png'),
-            loadImage(ambulanceImg2, 'Images/Ambulance2.png'),
-            loadImage(kidFall, 'Images/X.png'),
+            loadImage(backgroundImg, './Images/Background.png'),
+            loadImage(backgroundImg2, './Images/Background2.png'),
+            loadImage(backgroundImg3, './Images/Background3.png'),
+            loadImage(playerImg, './Images/Firemen.png'),
+            loadImage(playerImgBonce, './Images/Firemen2.png'),
+            loadImage(kid1Img, './Images/Kid1.png'),
+            loadImage(kid2Img, './Images/Kid2.png'),
+            loadImage(ambulanceImg, './Images/Ambulance.png'),
+            loadImage(ambulanceImg2, './Images/Ambulance2.png'),
+            loadImage(kidFall, './Images/X.png'),
         ]);
+kidFall.src = 'https://lh3.google.com/u/1/d/1sDN3uJiPBk6URgX7DybOjJ15yx91oh7a=w958-h842-iv1';
         score.getDB();
         setInterval(gamePlay, 1000 / framePerSecond);
 
     } catch (err) {
         console.error(err);
     }
-    // backgroundImg = document.getElementById('backgroundImg');
-    // backgroundImg2 = document.getElementById('backgroundImg2');
-    // backgroundImg3 = document.getElementById('backgroundImg3');
-    // playerImg = document.getElementById('playerImg');
-    // kid1Img = document.getElementById('kid1Img');
-    // kid2Img = document.getElementById('kid2Img');
-    // ambulanceImg = document.getElementById('ambulance');
 }
 
 
@@ -113,7 +154,6 @@ function drawCanvas() {
     player.draw();
     level.drawLevelUp();
 
-
 }
 
 ///game-over
@@ -144,17 +184,15 @@ const gameOver = {
             ctx.font = `${this.font}px fantasy`;
             ctx.fillStyle = 'red';
             ctx.strokeStyle = 'white';
-            ctx.fillText('GAME OVER', canvas.width / 3.7, canvas.height / 1.7);
-            ctx.strokeText('GAME OVER', canvas.width / 3.7 - 1, canvas.height / 1.7);
-            ctx.strokeText('GAME OVER', canvas.width / 3.7 - 2, canvas.height / 1.7);
+            ctx.textAlign = 'center'
+            ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 1.7);
+            ctx.strokeText('GAME OVER', canvas.width / 2, canvas.height / 1.7);
+            ctx.strokeText('GAME OVER', canvas.width / 2, canvas.height / 1.7);
 
             ctx.font = 'bold 35px Courier';
-            ctx.fillStyle = '#dbdbdb';
-            ctx.strokeStyle = 'black'
-            ctx.fillText('press here', canvas.width / 3 + 30, canvas.height / 1.5);
-            ctx.strokeText('press here', canvas.width / 3 + 30, canvas.height / 1.5);
-            ctx.fillText('to try again', canvas.width / 3 + 5, canvas.height / 1.38);
-            ctx.strokeText('to try again', canvas.width / 3 + 5, canvas.height / 1.38);
+            ctx.fillStyle = 'black';
+            ctx.fillText('try again', canvas.width / 2, (canvas.height / 2) + 120);
+            ctx.fillText('press space / on screen', canvas.width / 2, (canvas.height / 2) + 160);
         }
     }
 }
@@ -185,7 +223,7 @@ const player = {
     x: 80,
     y: (canvas.height / 4) * 3 - 20,
     w: 200,
-    h: 130,
+    h: 100,
 
     step: 170,
     currentPos: 1,
@@ -389,13 +427,14 @@ const level = {
     ],
     timer: 0,
     counterForDraw: 0,
-    toNextLevel: 3,
+    toNextLevel: 20,
     resetTimer() {
         this.timer = (this.timesLevels[this.level][this.picRandom(0, 4)]) * framePerSecond;
     },
     draw() {
         ctx.font = '18px Courier';
         ctx.fillStyle = 'black';
+        ctx.textAlign = 'left'
         ctx.fillText('level: ' + (this.level + 1), canvas.width / 2, 40);
         ctx.strokeStyle = 'black';
         ctx.strokeText('level: ' + (this.level + 1), canvas.width / 2, 40);
@@ -412,6 +451,7 @@ const level = {
         if (this.counterForDraw) {
             ctx.font = 'bold 60px Courier';
             ctx.fillStyle = 'red'
+            ctx.textAlign = 'left'
             ctx.fillText('level up!', canvas.width / 2 - 50, 150);
             this.counterForDraw -= 1;
         }
@@ -429,7 +469,7 @@ const level = {
             let high = (level < 2) ? 150 : 50;
             allKids.forEach(kid => {
                 if (!kid.bouncing &&
-                    kid.y < kid.startYPosition + high + 100  && level.level < 3 ||
+                    kid.y < kid.startYPosition + high + 100 && level.level < 3 ||
                     kid.y < kid.startYPosition + high && level.level < 3
                 ) {
                     ready = false;
@@ -533,6 +573,7 @@ const score = {
         }
     },
     print() {
+        ctx.textAlign = 'left'
         ctx.font = '15px Courier';
         ctx.strokeStyle = 'black';
         ctx.strokeText('score', canvas.width - 250, 40);

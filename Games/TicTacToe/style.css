@@ -200,7 +200,7 @@
 }
 
 body {
-    background-image: url("background.png");
+    background-image: url("./Images/background.png");
     background-size: 15%;
     background-attachment: fixed;
     height: 90%;
